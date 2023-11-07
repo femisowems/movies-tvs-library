@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ang-movies-app": {
+    "movies-tv-library": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ang-movies-app",
+            "outputPath": "dist/movies-tv-library",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ang-movies-app:build:production"
+              "browserTarget": "movies-tv-library:build:production"
             },
             "development": {
-              "browserTarget": "ang-movies-app:build:development"
+              "browserTarget": "movies-tv-library:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ang-movies-app:build"
+            "browserTarget": "movies-tv-library:build"
           }
         },
         "test": {
