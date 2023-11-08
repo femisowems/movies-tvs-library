@@ -16,7 +16,8 @@ body {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   color: $white;
-  background-color: $bgColor;
+  background: rgb(2,0,36);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(90,83,83,1) 35%, rgba(119,98,116,1) 100%);
 }
 
 a {

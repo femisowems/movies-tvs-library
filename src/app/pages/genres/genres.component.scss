@@ -9,4 +9,10 @@
   font-size: 1.6rem;
   justify-content: center;
   align-items: center;
+
+  &[style*="background-image: url("] {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
 }
