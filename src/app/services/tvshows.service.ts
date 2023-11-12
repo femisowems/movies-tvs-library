@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { TvShow, TvShowCredits, TvShowDto, TvShowImages, TvShowVideoDto } from '../models/tv';
 import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -10,12 +10,38 @@ import { GenresDto } from '../models/genre';
 })
 export class TvShowsService {
   baseUrl: string = 'https://api.themoviedb.org/3';
-  apiKey: string = '8c247ea0b4b56ed2ff7d41c9a833aa77';
+  accessToken: string = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MzBhZjcxOTViYzU0OGZiNTAxNDAxNmZjZGRmNjA5MCIsInN1YiI6IjYyOWVlOTIzODUwMDVkMDBhY2FlMjgzMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KlxxHwgsMYDcVWYkyUYdV9tXyVRA03Dw1fLcyNBb7e4'; // Replace with your access token
 
   constructor(private http: HttpClient) {}
 
-  getTvShows(type: string = 'upcoming', count: number = 12) {
-    return this.http.get<TvShowDto>(`${this.baseUrl}/tv/${type}?api_key=${this.apiKey}`).pipe(
+  private createHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Authorization': `Bearer ${this.accessToken}`
+    });
+  }
+
+  private createParams(params: any = {}): HttpParams {
+    let httpParams = new HttpParams();
+
+    for (const key in params) {
+      if (params.hasOwnProperty(key)) {
+        httpParams = httpParams.set(key, params[key]);
+      }
+    }
+
+    return httpParams;
+  }
+
+  getTvShows(type: string = 'popular', count: number = 12) {
+    const headers = this.createHeaders();
+    const params = this.createParams({
+      language: 'en-U'
+    });
+
+    return this.http.get<TvShowDto>(`${this.baseUrl}/tv/${type}`, {
+      headers: headers,
+      params: params
+    }).pipe(
       switchMap((res) => {
         return of(res.results.slice(0, count));
       })
@@ -23,21 +49,31 @@ export class TvShowsService {
   }
 
   getTvShow(id: string) {
-    return this.http.get<TvShow>(`${this.baseUrl}/tv/${id}?api_key=${this.apiKey}`);
+    const headers = this.createHeaders();
+
+    return this.http.get<TvShow>(`${this.baseUrl}/tv/${id}`, {
+      headers: headers
+    });
   }
 
   getTvShowVideos(id: string) {
-    return this.http
-      .get<TvShowVideoDto>(`${this.baseUrl}/tv/${id}/videos?api_key=${this.apiKey}`)
-      .pipe(
-        switchMap((res) => {
-          return of(res.results);
-        })
-      );
+    const headers = this.createHeaders();
+
+    return this.http.get<TvShowVideoDto>(`${this.baseUrl}/tv/${id}/videos`, {
+      headers: headers
+    }).pipe(
+      switchMap((res) => {
+        return of(res.results);
+      })
+    );
   }
 
   getTvShowsGenres() {
-    return this.http.get<GenresDto>(`${this.baseUrl}/genre/tv/list?api_key=${this.apiKey}`).pipe(
+    const headers = this.createHeaders();
+
+    return this.http.get<GenresDto>(`${this.baseUrl}/genre/tv/list`, {
+      headers: headers
+    }).pipe(
       switchMap((res) => {
         return of(res.genres);
       })
@@ -45,27 +81,44 @@ export class TvShowsService {
   }
 
   getTvShowsByGenre(genreId: string, pageNumber: number) {
-    return this.http
-      .get<TvShowDto>(
-        `${this.baseUrl}/discover/tv?with_genres=${genreId}&page=${pageNumber}&api_key=${this.apiKey}`
-      )
-      .pipe(
-        switchMap((res) => {
-          return of(res.results);
-        })
-      );
+    const headers = this.createHeaders();
+    const params = this.createParams({
+      with_genres: genreId,
+      page: pageNumber.toString()
+    });
+
+    return this.http.get<TvShowDto>(`${this.baseUrl}/discover/tv`, {
+      headers: headers,
+      params: params
+    }).pipe(
+      switchMap((res) => {
+        return of(res.results);
+      })
+    );
   }
 
   getTvShowImages(id: string) {
-    return this.http.get<TvShowImages>(`${this.baseUrl}/tv/${id}/images?api_key=${this.apiKey}`);
+    const headers = this.createHeaders();
+
+    return this.http.get<TvShowImages>(`${this.baseUrl}/tv/${id}/images`, {
+      headers: headers
+    });
   }
 
   getTvShowCredits(id: string) {
-    return this.http.get<TvShowCredits>(`${this.baseUrl}/tv/${id}/credits?api_key=${this.apiKey}`);
+    const headers = this.createHeaders();
+
+    return this.http.get<TvShowCredits>(`${this.baseUrl}/tv/${id}/credits`, {
+      headers: headers
+    });
   }
 
   getTvShowSimilar(id: string) {
-    return this.http.get<TvShowDto>(`${this.baseUrl}/tv/${id}/similar?api_key=${this.apiKey}`).pipe(
+    const headers = this.createHeaders();
+
+    return this.http.get<TvShowDto>(`${this.baseUrl}/tv/${id}/similar`, {
+      headers: headers
+    }).pipe(
       switchMap((res) => {
         return of(res.results.slice(0, 12));
       })
@@ -73,20 +126,32 @@ export class TvShowsService {
   }
 
   searchTvShows(page: number, searchValue?: string) {
+    const headers = this.createHeaders();
     const uri = searchValue ? '/search/tv' : '/tv/popular';
-    return this.http
-      .get<TvShowDto>(
-        `${this.baseUrl}${uri}?page=${page}&query=${searchValue}&api_key=${this.apiKey}`
-      )
-      .pipe(
-        switchMap((res) => {
-          return of(res.results);
-        })
-      );
+    const params = this.createParams({
+      page: page.toString(),
+    });
+
+    if (searchValue) {
+      params.set('query', searchValue);
+    }
+
+    return this.http.get<TvShowDto>(`${this.baseUrl}${uri}`, {
+      headers: headers,
+      params: params
+    }).pipe(
+      switchMap((res) => {
+        return of(res.results);
+      })
+    );
   }
 
-  getTvs(type: string = 'latest', count: number = 12) {
-    return this.http.get<TvShowDto>(`${this.baseUrl}/tv/${type}?api_key=${this.apiKey}`).pipe(
+  getTvs(type: string = 'popular', count: number = 12) {
+    const headers = this.createHeaders();
+
+    return this.http.get<TvShowDto>(`${this.baseUrl}/tv/${type}`, {
+      headers: headers
+    }).pipe(
       switchMap((res) => {
         return of(res.results.slice(0, count));
       })
