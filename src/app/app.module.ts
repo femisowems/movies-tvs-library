@@ -48,7 +48,7 @@ import { TvShowComponent } from './pages/tvshow/tvshow.component';
     TabViewModule,
     ImageModule,
     CarouselModule,
-    InputTextModule
+    InputTextModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

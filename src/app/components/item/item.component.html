@@ -2,8 +2,10 @@
   <a class="item" [routerLink]="itemData.routePath">
     <div class="item-rating">
       <i class="app-icon">star</i>
-      <span>{{ itemData.vote_average.toFixed(2) }}</span
-      >/10
+      <span>{{ itemData.vote_average.toFixed(2) }}</span>/10
+    </div>
+    <div class="item-release">
+      <span>{{ itemData.release_date | date: 'yyyy' }}</span>
     </div>
     <div class="item-image">
       <img [src]="imagesSizes.medium + itemData.poster_path" [alt]="itemData.title" />
