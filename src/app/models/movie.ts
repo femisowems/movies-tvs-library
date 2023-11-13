@@ -1,6 +1,7 @@
 import { Item } from '../components/item/item';
 
 export interface Movie {
+
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];

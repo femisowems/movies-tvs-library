@@ -4,8 +4,11 @@
       <i class="app-icon">star</i>
       <span>{{ itemData.vote_average.toFixed(2) }}</span>/10
     </div>
-    <div class="item-release">
+    <div class="item-release" *ngIf="itemData.release_date">
       <span>{{ itemData.release_date | date: 'yyyy' }}</span>
+    </div>
+    <div class="item-release" *ngIf="itemData.first_air_date">
+      <span>{{ itemData.first_air_date | date: 'yyyy' }}</span>
     </div>
     <div class="item-image">
       <img [src]="imagesSizes.medium + itemData.poster_path" [alt]="itemData.title" />

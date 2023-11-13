@@ -6,6 +6,7 @@ export interface Item {
   backdrop_path: string;
   vote_count: number;
   release_date: string;
+  first_air_date?: string;
   overview: string;
   routePath?: string;
 }

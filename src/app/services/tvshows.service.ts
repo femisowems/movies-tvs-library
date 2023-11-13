@@ -32,7 +32,7 @@ export class TvShowsService {
     return httpParams;
   }
 
-  getTvShows(type: string = 'popular', count: number = 12) {
+  getTvShows(type: string = 'upcoming', count: number = 12) {
     const headers = this.createHeaders();
     const params = this.createParams({
       language: 'en-U'
@@ -146,7 +146,7 @@ export class TvShowsService {
     );
   }
 
-  getTvs(type: string = 'popular', count: number = 12) {
+  getTvs(type: string = 'popular', count: number = 18) {
     const headers = this.createHeaders();
 
     return this.http.get<TvShowDto>(`${this.baseUrl}/tv/${type}`, {
