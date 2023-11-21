@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MovieComponent } from '../movie/movie.component';
 
-import { MovieComponent } from './movie.component';
 
 describe('MovieComponent', () => {
   let component: MovieComponent;
