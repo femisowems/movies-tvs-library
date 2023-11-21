@@ -13,8 +13,8 @@ import { IMAGES_SIZES } from '../../constants/images-sizes';
 
 @Component({
   selector: 'app-tvShow',
-  templateUrl: './tvShow.component.html',
-  styleUrls: ['./tvShow.component.scss']
+  templateUrl: './tvshow.component.html',
+  styleUrls: ['./tvshow.component.scss']
 })
 export class TvShowComponent implements OnInit, OnDestroy {
   tvShow: TvShow | null = null;
