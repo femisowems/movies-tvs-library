@@ -8,9 +8,20 @@
   justify-content: center;
   align-items: center;
 
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+
+  // Set text color to white
+  color: white;
+
   &[style*="background-image: url("] {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+
+    // Center the text horizontally and vertically within the genre-link element
+    justify-content: center;
+    align-items: center;
   }
 }
