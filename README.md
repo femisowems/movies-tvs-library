@@ -11,7 +11,7 @@ Recreating Movies/Tv Shows Angular Project created last yr. Personal Project.
 - ~~search movies and tv shows~~
 - *new* being able to watch the appropriate trailer
 - *new* being able to see appropriate streaming service to watch movie/tv-show
-- *new* add posters for different genres
+- ~~*new* add posters for different genres~~
 - *new* being able to sort based on different attributes
 
 ## Tech
