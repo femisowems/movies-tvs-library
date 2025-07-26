@@ -17,13 +17,11 @@
               <span class="rating-value">{{ item.vote_average.toFixed(2) }}</span>
               <span>/10</span>
             </span>
-            <span>{{ item.vote_count }}</span>
-            <span *ngIf="item.release_date">{{ item.release_date | date: 'MMM d, y' }}</span>
-            <span *ngIf="item.first_air_date">{{ item.first_air_date | date: 'MMM d, y' }}</span>
+            <span class="release_date" *ngIf="item.release_date">{{ item.release_date | date: 'MMM d, y' }}</span>
           </div>
         </div>
         <div class="desc mt-6">
-          {{ item.overview }}
+          {{ item.overview.length > 200 ? (item.overview | slice:0:200) + '...' : item.overview }}
         </div>
       </div>
     </div>
