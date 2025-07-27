@@ -6,15 +6,15 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem 1rem;
-    height: 65px;
-    background-color: $bgColorLight;
+    height: 100px;
+    background-color: $bgColorBlue;
     margin: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
     &-logo {
       display: block;
       img {
-        width: 100px;
+        width: 200px;
         height: auto;
       }
     }
