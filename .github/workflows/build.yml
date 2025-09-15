@@ -1,6 +1,9 @@
-name: Run Tests
+name: CI + Vercel Deploy
 
-on: [push]
+on:
+  push:
+    branches:
+      - main  # or your production branch
 
 jobs:
   test:
