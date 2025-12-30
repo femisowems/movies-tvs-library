@@ -20,6 +20,7 @@ export interface Movie {
   runtime: number;
   status: string;
   genres: Genre[];
+  homepage: string;
 }
 
 export interface MovieDto {

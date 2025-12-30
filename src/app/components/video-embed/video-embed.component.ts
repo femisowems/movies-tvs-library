@@ -1,8 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'video-embed',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './video-embed.component.html',
   styleUrls: ['./video-embed.component.scss']
 })
@@ -12,7 +15,7 @@ export class VideoEmbedComponent implements OnInit {
 
   videoUrl: SafeResourceUrl = '';
 
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     switch (this.site) {

@@ -12,7 +12,7 @@ export class TvShowsService {
   baseUrl: string = 'https://api.themoviedb.org/3';
   accessToken: string = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MzBhZjcxOTViYzU0OGZiNTAxNDAxNmZjZGRmNjA5MCIsInN1YiI6IjYyOWVlOTIzODUwMDVkMDBhY2FlMjgzMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KlxxHwgsMYDcVWYkyUYdV9tXyVRA03Dw1fLcyNBb7e4'; // Replace with your access token
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private createHeaders(): HttpHeaders {
     return new HttpHeaders({
@@ -125,15 +125,15 @@ export class TvShowsService {
     );
   }
 
-  searchTvShows(page: number, searchValue?: string) {
+  searchTvShows(page: number, searchValue?: string, category: string = 'popular') {
     const headers = this.createHeaders();
-    const uri = searchValue ? '/search/tv' : '/tv/popular';
-    const params = this.createParams({
+    const uri = searchValue ? '/search/tv' : `/tv/${category}`;
+    let params = this.createParams({
       page: page.toString(),
     });
 
     if (searchValue) {
-      params.set('query', searchValue);
+      params = params.set('query', searchValue);
     }
 
     return this.http.get<TvShowDto>(`${this.baseUrl}${uri}`, {

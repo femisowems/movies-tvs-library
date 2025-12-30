@@ -21,7 +21,9 @@ export interface TvShow {
   runtime: number;
   status: string;
   genres: Genre[];
-  title?: string;
+  homepage: string;
+  number_of_seasons: number;
+  number_of_episodes: number;
 }
 
 export interface TvShowDto {

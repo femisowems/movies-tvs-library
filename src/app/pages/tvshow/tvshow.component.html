@@ -1,76 +1,117 @@
 <ng-container *ngIf="tvShow">
-  <slider *ngIf="tvShowBanner" [items]="[tvShowBanner]" [isBanner]="true"></slider>
-  <p-tabView>
-    <p-tabPanel header="Overview">
+  <div class="hero" [style.backgroundImage]="'url(' + imagesSizes.large + tvShow.backdrop_path + ')'">
+    <div class="hero-bg-overlay"></div>
+    <div class="container hero-content">
       <div class="grid">
-        <div class="col-12 md:col-3 lg:col-3">
-          <img class="poster" [src]="imagesSizes.medium + tvShow.poster_path" [alt]="tvShow.name" />
+        <div class="col-12 md:col-4 lg:col-3">
+          <div class="poster-wrapper">
+            <img class="poster" [src]="imagesSizes.medium + tvShow.poster_path" [alt]="tvShow.name" />
+          </div>
         </div>
+        <div class="col-12 md:col-8 lg:col-9 flex align-items-center">
+          <div class="tv-show-info">
+            <h1 class="tv-show-title">{{ tvShow.name }}</h1>
+            <div class="tv-show-meta">
+              <span class="release-date">{{ tvShow.first_air_date | date: 'yyyy' }}</span>
+              <span class="separator">•</span>
+              <span class="duration">{{ tvShow.runtime }} min</span>
+              <span class="separator">•</span>
+              <span class="language">{{ tvShow.original_language | uppercase }}</span>
+            </div>
+            <div class="genres">
+              <span class="genre-chip" *ngFor="let genre of tvShow.genres">{{ genre.name }}</span>
+            </div>
+            <p class="overview">{{ tvShow.overview }}</p>
 
-        <div class="col-12 md:col-9 lg:col-9">
-          <h2>Overview</h2>
-          <p class="overview">{{ tvShow.overview }}</p>
-          <div class="stat">
-            <div class="label">Release Date:</div>
-            <div class="value">
-              {{ tvShow.first_air_date | date: 'MMM d, y' }}
-            </div>
-          </div>
-          <div class="stat">
-            <div class="label">Language:</div>
-            <div class="value">
-              {{ tvShow.original_language | uppercase }}
-            </div>
-          </div>
-          <div class="stat">
-            <div class="label">Revenue:</div>
-            <div class="value">
-              {{ tvShow.revenue | currency }}
-            </div>
-          </div>
-          <div class="stat">
-            <div class="label">Duration:</div>
-            <div class="value">{{ tvShow.runtime }} min</div>
-          </div>
-          <div class="stat">
-            <div class="label">Status:</div>
-            <div class="value">
-              {{ tvShow.status }}
-            </div>
-          </div>
-          <div class="stat">
-            <div class="label">Genres:</div>
-            <div class="value">
-              <span *ngFor="let genre of tvShow.genres">
-                {{ genre.name }}
-              </span>
+            <div class="tv-show-actions">
+              <a [href]="tvShow.homepage || '#'" target="_blank" *ngIf="tvShow.homepage" class="website-btn">
+                <i class="pi pi-link"></i> Website
+              </a>
             </div>
           </div>
         </div>
       </div>
-    </p-tabPanel>
-    <p-tabPanel header="Videos">
-      <div class="grid">
-        <ng-container *ngFor="let tvShowVideo of tvShowVideos">
-          <div class="col-12 md:col-4 lg:col-4">
-            <video-embed [key]="tvShowVideo.key" [site]="tvShowVideo.site"></video-embed>
+    </div>
+  </div>
+
+  <div class="container content-section">
+    <p-tabView>
+      <p-tabPanel header="Details">
+        <div class="grid">
+          <div class="col-12 md:col-4">
+            <div class="stat-box">
+              <h3>Status</h3>
+              <p>{{ tvShow.status }}</p>
+            </div>
           </div>
-        </ng-container>
-      </div>
-    </p-tabPanel>
-    <p-tabPanel header="Photos">
-      <div class="grid">
-        <ng-container *ngFor="let tvShowImage of tvShowImages?.backdrops">
-          <div class="col-12 md:col-4 lg:col-4">
-            <p-image
-              [src]="imagesSizes.large + tvShowImage.file_path"
-              alt="Image"
-              width="100%"
-              [preview]="true"
-            ></p-image>
+          <div class="col-12 md:col-4">
+            <div class="stat-box">
+              <h3>Seasons</h3>
+              <p>{{ tvShow.number_of_seasons }} <span
+                  style="font-size: 0.8rem; font-weight: normal; color: rgba(255,255,255,0.7)">({{
+                  tvShow.number_of_episodes }} eps)</span></p>
+            </div>
           </div>
-        </ng-container>
-      </div>
-    </p-tabPanel>
-  </p-tabView>
+          <div class="col-12 md:col-4">
+            <div class="stat-box">
+              <h3>First Air Date</h3>
+              <p>{{ tvShow.first_air_date | date: 'longDate' }}</p>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Videos">
+        <div class="grid">
+          <div class="col-12" *ngIf="tvShowVideos.length > 0">
+            <p-carousel [numVisible]="2" [numScroll]="2" [value]="tvShowVideos">
+              <ng-template let-video pTemplate="item">
+                <div class="p-2">
+                  <video-embed [key]="video.key" [site]="video.site"></video-embed>
+                </div>
+              </ng-template>
+            </p-carousel>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Photos">
+        <div class="grid">
+          <div class="col-12" *ngIf="tvShowImages?.backdrops?.length">
+            <p-carousel [numVisible]="2" [numScroll]="2" [value]="tvShowImages?.backdrops || []">
+              <ng-template let-image pTemplate="item">
+                <div class="p-2">
+                  <p-image [src]="imagesSizes.large + image.file_path" alt="Image" width="100%"
+                    [preview]="true"></p-image>
+                </div>
+              </ng-template>
+            </p-carousel>
+          </div>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+
+    <div class="cast-section" *ngIf="tvShowCredits">
+      <h2 class="section-title">Top Cast</h2>
+      <p-carousel [numVisible]="5" [numScroll]="5" [circular]="false" [value]="tvShowCredits.cast">
+        <ng-template let-actor pTemplate="item">
+          <div class="actor-card">
+            <div class="actor-img">
+              <img
+                [src]="actor.profile_path ? (imagesSizes.medium + actor.profile_path) : 'assets/images/actor-placeholder.png'"
+                [alt]="actor.name" />
+            </div>
+            <div class="actor-info">
+              <span class="actor-name">{{ actor.name }}</span>
+              <span class="character-name">{{ actor.character }}</span> // Note: API might not return character for all
+              aggregation
+            </div>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </div>
+
+    <div class="similar-tv-shows" *ngIf="similarTvShows.length">
+      <items-banner [items]="similarTvShows" title="Similar TV Shows"></items-banner>
+    </div>
+
+  </div>
 </ng-container>

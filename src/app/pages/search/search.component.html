@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="page-header">
+        <h1 class="page-title">
+            Search Results for "<span class="highlight">{{ searchValue }}</span>"
+        </h1>
+
+        <div class="search-tabs">
+            <button class="tab-btn" [class.active]="activeTab === 'movies'" (click)="setActiveTab('movies')">
+                Movies ({{ movies.length }})
+            </button>
+            <button class="tab-btn" [class.active]="activeTab === 'tvshows'" (click)="setActiveTab('tvshows')">
+                TV Shows ({{ tvShows.length }})
+            </button>
+        </div>
+    </div>
+
+    <!-- Movies Result -->
+    <div class="grid" *ngIf="activeTab === 'movies'">
+        <div class="col-12" *ngIf="movies.length === 0">
+            <div class="no-results">No movies found matching "{{searchValue}}"</div>
+        </div>
+        <div class="col-6 md:col-3 lg:col-2" *ngFor="let movie of movies">
+            <item [itemData]="movie"></item>
+        </div>
+    </div>
+
+    <!-- TV Shows Result -->
+    <div class="grid" *ngIf="activeTab === 'tvshows'">
+        <div class="col-12" *ngIf="tvShows.length === 0">
+            <div class="no-results">No TV shows found matching "{{searchValue}}"</div>
+        </div>
+        <div class="col-6 md:col-3 lg:col-2" *ngFor="let tvShow of tvShows">
+            <item [itemData]="tvShow"></item>
+        </div>
+    </div>
+</div>

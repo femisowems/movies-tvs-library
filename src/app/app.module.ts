@@ -22,24 +22,26 @@ import { GenresComponent } from './pages/genres/genres.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { TvShowsComponent } from './pages/tv-shows/tv-shows.component';
 import { TvShowComponent } from './pages/tvshow/tvshow.component';
+import { SearchComponent } from './pages/search/search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent,
     HomeComponent,
     MoviesComponent,
-    SliderComponent,
-    ItemsBannerComponent,
-    ItemComponent,
     MovieComponent,
-    VideoEmbedComponent,
     GenresComponent,
     TvShowsComponent,
-    TvShowComponent
+    SearchComponent
   ],
   imports: [
+    FooterComponent,
+    SliderComponent,
+    VideoEmbedComponent,
+    TvShowComponent,
+    ItemsBannerComponent,
+    ItemComponent,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -53,4 +55,4 @@ import { TvShowComponent } from './pages/tvshow/tvshow.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

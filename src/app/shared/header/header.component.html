@@ -1,13 +1,27 @@
 <header>
   <nav class="navbar">
-    <a href="" class="navbar-logo">
-      <img src="assets/images/movie-show-logo.png" alt="website logo"/>
+    <a routerLink="/" class="navbar-logo">
+      <img src="assets/images/movie-show-logo.png" alt="website logo" />
     </a>
-    <ul class="navbar-links">
-      <li><a routerLink="/">Home</a></li>
-      <li><a routerLink="/movies">Movies</a></li>
-      <li><a routerLink="/tvshows">TV Shows</a></li>
-      <li><a routerLink="/genres">Genres</a></li>
+
+    <div class="menu-toggle" (click)="toggleMobileMenu()" [class.active]="mobileMenuOpen">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <ul class="navbar-links" [class.active]="mobileMenuOpen">
+      <li><a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
+          (click)="closeMobileMenu()">Home</a></li>
+      <li><a routerLink="/movies" routerLinkActive="active-link" (click)="closeMobileMenu()">Movies</a></li>
+      <li><a routerLink="/tvshows" routerLinkActive="active-link" (click)="closeMobileMenu()">TV Shows</a></li>
+      <li><a routerLink="/genres" routerLinkActive="active-link" (click)="closeMobileMenu()">Genres</a></li>
+      <li class="search-item">
+        <form (submit)="search()" class="search-form">
+          <i class="pi pi-search search-icon"></i>
+          <input type="text" [(ngModel)]="searchTerm" name="search" placeholder="Search..." class="search-input" />
+        </form>
+      </li>
     </ul>
   </nav>
 </header>

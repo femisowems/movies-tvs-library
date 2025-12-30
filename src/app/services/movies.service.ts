@@ -12,7 +12,7 @@ export class MoviesService {
   baseUrl: string = 'https://api.themoviedb.org/3';
   accessToken: string = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MzBhZjcxOTViYzU0OGZiNTAxNDAxNmZjZGRmNjA5MCIsInN1YiI6IjYyOWVlOTIzODUwMDVkMDBhY2FlMjgzMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KlxxHwgsMYDcVWYkyUYdV9tXyVRA03Dw1fLcyNBb7e4'; // Replace with your access token
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private createHeaders(): HttpHeaders {
     return new HttpHeaders({
@@ -123,15 +123,15 @@ export class MoviesService {
     );
   }
 
-  searchMovies(page: number, searchValue?: string) {
+  searchMovies(page: number, searchValue?: string, category: string = 'popular') {
     const headers = this.createHeaders();
-    const uri = searchValue ? '/search/movie' : '/movie/popular';
-    const params = this.createParams({
+    const uri = searchValue ? '/search/movie' : `/movie/${category}`;
+    let params = this.createParams({
       page: page.toString(),
     });
 
     if (searchValue) {
-      params.set('query', searchValue);
+      params = params.set('query', searchValue);
     }
 
     return this.http.get<MovieDto>(`${this.baseUrl}${uri}`, {

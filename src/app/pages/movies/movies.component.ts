@@ -13,8 +13,15 @@ export class MoviesComponent implements OnInit {
   movies: Movie[] = [];
   genreId: string | null = null;
   searchValue: string | null = null;
+  category: string = 'popular';
+  categories = [
+    { name: 'Popular', value: 'popular' },
+    { name: 'Top Rated', value: 'top_rated' },
+    { name: 'Upcoming', value: 'upcoming' },
+    { name: 'Now Playing', value: 'now_playing' }
+  ];
 
-  constructor(private moviesService: MoviesService, private route: ActivatedRoute) {}
+  constructor(private moviesService: MoviesService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.pipe(take(1)).subscribe(({ genreId }) => {
@@ -22,13 +29,21 @@ export class MoviesComponent implements OnInit {
         this.genreId = genreId;
         this.getMoviesByGenre(genreId, 1);
       } else {
-        this.getPagedMovies(1);
+        // Check for query params for search
+        this.route.queryParams.pipe(take(1)).subscribe((params) => {
+          if (params['search']) {
+            this.searchValue = params['search'];
+            this.getPagedMovies(1, this.searchValue || undefined); // Fix type mismatch
+          } else {
+            this.getPagedMovies(1);
+          }
+        });
       }
     });
   }
 
   getPagedMovies(page: number, searchKeyword?: string) {
-    this.moviesService.searchMovies(page, searchKeyword).subscribe((movies) => {
+    this.moviesService.searchMovies(page, searchKeyword, this.category).subscribe((movies) => {
       this.movies = movies;
     });
   }
@@ -57,5 +72,10 @@ export class MoviesComponent implements OnInit {
     if (this.searchValue) {
       this.getPagedMovies(1, this.searchValue);
     }
+  }
+
+  changeCategory(category: string) {
+    this.category = category;
+    this.getPagedMovies(1);
   }
 }

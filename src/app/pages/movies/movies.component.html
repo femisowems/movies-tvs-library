@@ -1,28 +1,37 @@
 <div class="container">
   <div class="grid">
     <div class="col-12">
-      <div class="p-fluid">
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input
-            type="text"
-            pInputText
-            placeholder="Search"
-            [(ngModel)]="searchValue"
-            (change)="searchChanged()"
-          />
-        </span>
+      <div class="search-container">
+        <h2 class="section-title">Explore Movies</h2>
+        <div class="p-fluid">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input type="text" pInputText placeholder="Search for movies..." [(ngModel)]="searchValue"
+              (change)="searchChanged()" class="search-input" />
+          </span>
+        </div>
       </div>
     </div>
   </div>
-  <div class="grid">
-    <div class="col-6 md:col-3 lg:col-3" *ngFor="let movie of movies">
+  <div class="grid" *ngIf="!genreId && !searchValue">
+    <div class="col-12">
+      <div class="categories-tabs">
+        <button *ngFor="let cat of categories" class="category-tab" [class.active]="category === cat.value"
+          (click)="changeCategory(cat.value)">
+          {{ cat.name }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid movies-grid">
+    <div class="col-6 md:col-4 lg:col-2" *ngFor="let movie of movies">
       <a [href]="'/movie/' + movie.id">
         <item [itemData]="movie"></item>
       </a>
     </div>
   </div>
-  <div>
-    <p-paginator [rows]="5" [totalRecords]="5000" (onPageChange)="paginate($event)"></p-paginator>
+  <div class="paginator-container">
+    <p-paginator [rows]="20" [totalRecords]="10000" (onPageChange)="paginate($event)"></p-paginator>
   </div>
 </div>

@@ -1,32 +1,209 @@
 @import '../../../styles/colors';
 
+
+
 header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: rgba($bgColorBlue, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+
   .navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem 1rem;
-    height: 100px;
-    background-color: $bgColorBlue;
-    margin: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0 2rem;
+    height: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
 
     &-logo {
-      display: block;
+      display: flex;
+      align-items: center;
+
       img {
-        width: 200px;
+        width: 150px;
         height: auto;
+        transition: transform 0.3s ease;
+      }
+
+      &:hover img {
+        transform: scale(1.05);
       }
     }
 
     &-links {
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
       padding: 0;
       margin: 0;
       list-style: none;
+
       li {
-        display: inline;
-        margin-right: 15px;
+        a {
+          text-decoration: none;
+          color: rgba($white, 0.7);
+          font-weight: 500;
+          font-size: 1.1rem;
+          transition: all 0.3s ease;
+          position: relative;
+
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: $primaryColor;
+            transition: width 0.3s ease;
+          }
+
+          &:hover,
+          &.active-link {
+            color: $white;
+
+            &::after {
+              width: 100%;
+            }
+          }
+
+          &.active-link {
+            color: $primaryColor;
+          }
+        }
+
+        &.search-item {
+          display: flex;
+          align-items: center;
+
+          .search-form {
+            position: relative;
+            display: flex;
+            align-items: center;
+
+            .search-icon {
+              position: absolute;
+              left: 10px;
+              color: rgba($white, 0.6);
+              font-size: 0.9rem;
+            }
+
+            .search-input {
+              background-color: rgba($white, 0.1);
+              border: 1px solid rgba($white, 0.2);
+              border-radius: 20px;
+              padding: 8px 12px 8px 32px;
+              color: $white;
+              font-size: 0.9rem;
+              width: 150px;
+              transition: all 0.3s ease;
+              outline: none;
+
+              &::placeholder {
+                color: rgba($white, 0.4);
+              }
+
+              &:focus {
+                width: 200px;
+                background-color: rgba($bgColorBlue, 0.8);
+                border-color: $primaryColor;
+                box-shadow: 0 0 0 2px rgba($primaryColor, 0.2);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      cursor: pointer;
+      z-index: 1001;
+
+      span {
+        display: block;
+        height: 3px;
+        width: 100%;
+        background-color: $white;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+      }
+    }
+
+    // Responsive Styles
+    @media (max-width: 768px) {
+      padding: 0 1rem;
+      height: 70px;
+
+      .menu-toggle {
+        display: flex;
+
+        &.active {
+          span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+          }
+
+          span:nth-child(2) {
+            opacity: 0;
+          }
+
+          span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+          }
+        }
+      }
+
+      .navbar-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        bottom: 0; // Full screen height minus header
+        height: calc(100vh - 70px);
+        background-color: rgba($bgColorBlue, 0.98);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2.5rem;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+
+        &.active {
+          transform: translateX(0);
+        }
+
+        li a {
+          font-size: 1.5rem;
+        }
+
+        .search-item {
+          .search-form {
+            .search-input {
+              // Mobile Search Styling
+              width: 250px;
+              font-size: 1.2rem;
+              padding: 10px 15px 10px 40px;
+
+              &:focus {
+                width: 280px;
+              }
+            }
+
+            .search-icon {
+              font-size: 1.1rem;
+              left: 15px;
+            }
+          }
+        }
       }
     }
   }

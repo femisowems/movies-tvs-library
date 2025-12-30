@@ -1,4 +1,31 @@
 <slider [items]="popularMovies"></slider>
-<items-banner [items]="upcomingMovies" title="Upcoming Movies"></items-banner>
-<items-banner [items]="topRatedMovies" title="Top Rated Movies"></items-banner>
-<items-banner [items]="popularTvShows" title="Popular Tv Shows"></items-banner>
+
+<!-- Movies Section -->
+<div class="section-container">
+    <div class="categories-tabs">
+        <button class="category-tab" [class.active]="selectedMovieTab === 'popular'"
+            (click)="changeMovieCategory('popular')">Popular</button>
+        <button class="category-tab" [class.active]="selectedMovieTab === 'top_rated'"
+            (click)="changeMovieCategory('top_rated')">Top Rated</button>
+        <button class="category-tab" [class.active]="selectedMovieTab === 'upcoming'"
+            (click)="changeMovieCategory('upcoming')">Upcoming</button>
+        <button class="category-tab" [class.active]="selectedMovieTab === 'now_playing'"
+            (click)="changeMovieCategory('now_playing')">In Theatres</button>
+    </div>
+    <items-banner [items]="moviesDisplay" [title]="'Movies'"></items-banner>
+</div>
+
+<!-- TV Shows Section -->
+<div class="section-container">
+    <div class="categories-tabs">
+        <button class="category-tab" [class.active]="selectedTvTab === 'popular'"
+            (click)="changeTvCategory('popular')">Popular</button>
+        <button class="category-tab" [class.active]="selectedTvTab === 'top_rated'"
+            (click)="changeTvCategory('top_rated')">Top Rated</button>
+        <button class="category-tab" [class.active]="selectedTvTab === 'on_the_air'"
+            (click)="changeTvCategory('on_the_air')">On TV</button>
+        <button class="category-tab" [class.active]="selectedTvTab === 'airing_today'"
+            (click)="changeTvCategory('airing_today')">Airing Today</button>
+    </div>
+    <items-banner [items]="tvShowsDisplay" [title]="'TV Shows'"></items-banner>
+</div>

@@ -1,12 +1,8 @@
 <div class="slider">
   <ng-container *ngFor="let item of items; let i = index">
-    <div class="slide" *ngIf="i == currentSlideIndex" @slideFade>
+    <a class="slide" *ngIf="i == currentSlideIndex" @slideFade [routerLink]="[item.routePath]">
       <div class="slide-bg">
-        <img
-          class="slide-bg-image"
-          [src]="imagesSizes.large + item.backdrop_path"
-          [alt]="item.title"
-        />
+        <img class="slide-bg-image" [src]="imagesSizes.large + item.backdrop_path" [alt]="item.title" />
       </div>
       <div class="slide-pane">
         <h2 class="name">{{ item.title }}</h2>
@@ -24,6 +20,19 @@
           {{ item.overview.length > 200 ? (item.overview | slice:0:200) + '...' : item.overview }}
         </div>
       </div>
-    </div>
+    </a>
   </ng-container>
+
+  <button class="nav-btn prev" (click)="previous()" *ngIf="!isBanner">
+    <i class="pi pi-chevron-left"></i>
+  </button>
+  <button class="nav-btn next" (click)="next()" *ngIf="!isBanner">
+    <i class="pi pi-chevron-right"></i>
+  </button>
+
+  <div class="indicators" *ngIf="!isBanner">
+    <span *ngFor="let item of items; let i = index" class="indicator" [class.active]="i === currentSlideIndex"
+      (click)="setSlide(i)">
+    </span>
+  </div>
 </div>

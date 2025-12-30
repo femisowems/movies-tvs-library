@@ -1,85 +1,113 @@
 <ng-container *ngIf="movie">
-  <slider [items]="[movie]" [isBanner]="true"></slider>
-  <p-tabView>
-    <p-tabPanel header="Overview">
+  <div class="hero" [style.backgroundImage]="'url(' + imagesSizes.large + movie.backdrop_path + ')'">
+    <div class="hero-bg-overlay"></div>
+    <div class="container hero-content">
       <div class="grid">
-        <div class="col-12 md:col-3 lg:col-3">
-          <img class="poster" [src]="imagesSizes.medium + movie.poster_path" [alt]="movie.title" />
+        <div class="col-12 md:col-4 lg:col-3">
+          <div class="poster-wrapper">
+            <img class="poster" [src]="imagesSizes.medium + movie.poster_path" [alt]="movie.title" />
+          </div>
         </div>
+        <div class="col-12 md:col-8 lg:col-9 flex align-items-center">
+          <div class="movie-info">
+            <h1 class="movie-title">{{ movie.title }}</h1>
+            <div class="movie-meta">
+              <span class="release-date">{{ movie.release_date | date: 'yyyy' }}</span>
+              <span class="separator">•</span>
+              <span class="duration">{{ movie.runtime }} min</span>
+              <span class="separator">•</span>
+              <span class="language">{{ movie.original_language | uppercase }}</span>
+            </div>
+            <div class="genres">
+              <span class="genre-chip" *ngFor="let genre of movie.genres">{{ genre.name }}</span>
+            </div>
+            <p class="overview">{{ movie.overview }}</p>
 
-        <div class="col-12 md:col-9 lg:col-9">
-          <h2>Overview</h2>
-          <p class="overview">{{ movie.overview }}</p>
-          <div class="stat">
-            <div class="label">Release Date:</div>
-            <div class="value">
-              {{ movie.release_date | date: 'MMM d, y'  }}
-            </div>
-          </div>
-          <div class="stat">
-            <div class="label">Language:</div>
-            <div class="value">
-              {{ movie.original_language | uppercase }}
-            </div>
-          </div>
-          <div class="stat">
-            <div class="label">Revenue:</div>
-            <div class="value">
-              {{ movie.revenue | currency }}
-            </div>
-          </div>
-          <div class="stat">
-            <div class="label">Duration:</div>
-            <div class="value">{{ movie.runtime }} min</div>
-          </div>
-          <div class="stat">
-            <div class="label">Status:</div>
-            <div class="value">
-              {{ movie.status }}
-            </div>
-          </div>
-          <div class="stat">
-            <div class="label">Genres:</div>
-            <div class="value">
-              <span *ngFor="let genre of movie.genres">
-                {{ genre.name }}
-              </span>
+            <div class="movie-actions">
+              <a [href]="movie.homepage" target="_blank" *ngIf="movie.homepage" class="website-btn">
+                <i class="pi pi-link"></i> Website
+              </a>
             </div>
           </div>
         </div>
       </div>
-    </p-tabPanel>
-    <p-tabPanel header="Videos">
-      <div class="grid">
-        <ng-container *ngFor="let movieVideo of movieVideos">
-          <div class="col-12 md:col-4 lg:col-4">
-            <video-embed [key]="movieVideo.key" [site]="movieVideo.site"></video-embed>
+    </div>
+  </div>
+
+  <div class="container content-section">
+    <p-tabView>
+      <p-tabPanel header="Details">
+        <div class="grid">
+          <div class="col-12 md:col-4">
+            <div class="stat-box">
+              <h3>Status</h3>
+              <p>{{ movie.status }}</p>
+            </div>
           </div>
-        </ng-container>
-      </div>
-    </p-tabPanel>
-    <p-tabPanel header="Photos">
-      <div class="grid">
-        <ng-container *ngFor="let movieImage of movieImages?.backdrops">
-          <div class="col-12 md:col-4 lg:col-4">
-            <p-image
-              [src]="imagesSizes.large + movieImage.file_path"
-              alt="Image"
-              width="100%"
-              [preview]="true"
-            ></p-image>
+          <div class="col-12 md:col-4">
+            <div class="stat-box">
+              <h3>Revenue</h3>
+              <p>{{ movie.revenue | currency }}</p>
+            </div>
           </div>
-        </ng-container>
-      </div>
-    </p-tabPanel>
-  </p-tabView>
-  <p-carousel [numVisible]="5" *ngIf="movieCredits" [value]="movieCredits.cast">
-    <ng-template let-actor pTemplate="item">
-      <div class="actor">
-        <img [src]="imagesSizes.medium + actor.profile_path" alt="" />
-        <span>{{ actor.name }}</span>
-      </div>
-    </ng-template>
-  </p-carousel>
-  <items-banner [items]="similarMovies" title="Similar Movies"></items-banner>
+          <div class="col-12 md:col-4">
+            <div class="stat-box">
+              <h3>Release Date</h3>
+              <p>{{ movie.release_date | date: 'longDate' }}</p>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Videos">
+        <div class="grid">
+          <div class="col-12" *ngIf="movieVideos.length > 0">
+            <p-carousel [numVisible]="2" [numScroll]="2" [value]="movieVideos">
+              <ng-template let-video pTemplate="item">
+                <div class="p-2">
+                  <video-embed [key]="video.key" [site]="video.site"></video-embed>
+                </div>
+              </ng-template>
+            </p-carousel>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Photos">
+        <div class="grid">
+          <div class="col-12" *ngIf="movieImages?.backdrops?.length">
+            <p-carousel [numVisible]="2" [numScroll]="2" [value]="movieImages?.backdrops || []">
+              <ng-template let-image pTemplate="item">
+                <div class="p-2">
+                  <p-image [src]="imagesSizes.large + image.file_path" alt="Image" width="100%"
+                    [preview]="true"></p-image>
+                </div>
+              </ng-template>
+            </p-carousel>
+          </div>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+
+    <div class="cast-section" *ngIf="movieCredits">
+      <h2 class="section-title">Top Cast</h2>
+      <p-carousel [numVisible]="5" [numScroll]="5" [circular]="false" [value]="movieCredits.cast">
+        <ng-template let-actor pTemplate="item">
+          <div class="actor-card">
+            <div class="actor-img">
+              <img
+                [src]="actor.profile_path ? (imagesSizes.medium + actor.profile_path) : 'assets/images/actor-placeholder.png'"
+                [alt]="actor.name" />
+            </div>
+            <div class="actor-info">
+              <span class="actor-name">{{ actor.name }}</span>
+              <span class="character-name">{{ actor.character }}</span>
+            </div>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </div>
+
+    <div class="similar-movies" *ngIf="similarMovies.length">
+      <items-banner [items]="similarMovies" title="Similar Movies"></items-banner>
+    </div>
+  </div>
 </ng-container>

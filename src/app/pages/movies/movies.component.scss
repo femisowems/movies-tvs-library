@@ -1,0 +1,161 @@
+@import '../../../styles/colors';
+
+.container {
+    padding: 2rem 0;
+    min-height: 80vh;
+}
+
+.search-container {
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        color: $primaryColor;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .p-input-icon-left {
+        width: 100%;
+
+        i {
+            color: rgba($white, 0.5);
+            font-size: 1.2rem;
+            top: 50%;
+            margin-top: -0.6rem;
+        }
+
+        .search-input {
+            width: 100%;
+            background-color: rgba($bgColorLight, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 1rem 1rem 1rem 3rem;
+            color: $white;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+            &:focus {
+                border-color: $primaryColor;
+                box-shadow: 0 0 0 2px rgba($primaryColor, 0.2), 0 4px 20px rgba(0, 0, 0, 0.3);
+                background-color: rgba($bgColorLight, 1);
+            }
+
+            &::placeholder {
+                color: rgba($white, 0.4);
+            }
+        }
+    }
+}
+
+.movies-grid {
+    margin-top: 2rem;
+    row-gap: 2rem;
+}
+
+.categories-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+
+    .category-tab {
+        background: transparent;
+        border: 2px solid rgba($white, 0.1);
+        color: rgba($white, 0.7);
+        padding: 0.8rem 2rem;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+
+        &:hover {
+            border-color: $primaryColor;
+            color: $white;
+            background: rgba($primaryColor, 0.1);
+        }
+
+        &.active {
+            background: $primaryColor;
+            border-color: $primaryColor;
+            color: $bgColorBlue;
+            box-shadow: 0 4px 15px rgba($primaryColor, 0.3);
+            transform: translateY(-2px);
+        }
+    }
+}
+
+.paginator-container {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: center;
+
+    ::ng-deep .p-paginator {
+        background: transparent;
+        border: none;
+        padding: 0;
+
+        .p-paginator-pages {
+            .p-paginator-page {
+                color: rgba($white, 0.6);
+                background: transparent;
+                border-radius: 50%;
+                min-width: 40px;
+                height: 40px;
+                margin: 0 5px;
+                font-weight: 600;
+                transition: all 0.3s ease;
+
+                &:not(.p-highlight):hover {
+                    background: rgba($white, 0.1);
+                    color: $white;
+                }
+
+                &.p-highlight {
+                    background: $primaryColor;
+                    color: $bgColorBlue;
+                    box-shadow: 0 4px 10px rgba($primaryColor, 0.3);
+                }
+            }
+        }
+
+        .p-paginator-first,
+        .p-paginator-prev,
+        .p-paginator-next,
+        .p-paginator-last {
+            color: $primaryColor;
+            background: transparent;
+            border-radius: 50%;
+            min-width: 40px;
+            height: 40px;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+
+            &:not(.p-disabled):hover {
+                background: rgba($primaryColor, 0.1);
+                transform: scale(1.1);
+            }
+        }
+    }
+}
+
+// Ensure grid items have consistent height
+::ng-deep app-item {
+    height: 100%;
+    display: block;
+
+    .movie-item {
+        height: 100%;
+    }
+}

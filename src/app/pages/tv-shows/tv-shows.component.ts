@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
-import { TvShow } from 'src/app/models/tv';
+import { TvShow, mapTvShowToItem } from 'src/app/models/tv';
 import { TvShowsService } from '../../services/tvshows.service';
+import { Item } from 'src/app/components/item/item';
 
 @Component({
   selector: 'app-tv-shows',
@@ -10,11 +11,18 @@ import { TvShowsService } from '../../services/tvshows.service';
   styleUrls: ['./tv-shows.component.scss']
 })
 export class TvShowsComponent implements OnInit {
-  tvShows: TvShow[] = [];
+  tvShows: Item[] = [];
   genreId: string | null = null;
   searchValue: string | null = null;
+  category: string = 'popular';
+  categories = [
+    { name: 'Popular', value: 'popular' },
+    { name: 'Top Rated', value: 'top_rated' },
+    { name: 'On TV', value: 'on_the_air' },
+    { name: 'Airing Today', value: 'airing_today' }
+  ];
 
-  constructor(private tvShowsService: TvShowsService, private route: ActivatedRoute) {}
+  constructor(private tvShowsService: TvShowsService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.pipe(take(1)).subscribe(({ genreId }) => {
@@ -28,14 +36,14 @@ export class TvShowsComponent implements OnInit {
   }
 
   getPagedTvShows(page: number, searchKeyword?: string) {
-    this.tvShowsService.searchTvShows(page, searchKeyword).subscribe((tvShows) => {
-      this.tvShows = tvShows;
+    this.tvShowsService.searchTvShows(page, searchKeyword, this.category).subscribe((tvShows) => {
+      this.tvShows = tvShows.map((tvShow) => mapTvShowToItem(tvShow));
     });
   }
 
   getTvShowsByGenre(genreId: string, page: number) {
     this.tvShowsService.getTvShowsByGenre(genreId, page).subscribe((tvShows) => {
-      this.tvShows = tvShows;
+      this.tvShows = tvShows.map((tvShow) => mapTvShowToItem(tvShow));
     });
   }
 
@@ -57,5 +65,10 @@ export class TvShowsComponent implements OnInit {
     if (this.searchValue) {
       this.getPagedTvShows(1, this.searchValue);
     }
+  }
+
+  changeCategory(category: string) {
+    this.category = category;
+    this.getPagedTvShows(1);
   }
 }

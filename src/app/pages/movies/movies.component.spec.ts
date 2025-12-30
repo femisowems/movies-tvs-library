@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { MoviesComponent } from './movies.component';
+import { MoviesService } from 'src/app/services/movies.service';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('MoviesComponent', () => {
   let component: MoviesComponent;
@@ -8,9 +10,13 @@ describe('MoviesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MoviesComponent ]
+      declarations: [MoviesComponent],
+      providers: [
+        { provide: MoviesService, useValue: { searchMovies: () => of([]), getMoviesByGenre: () => of([]) } },
+        { provide: ActivatedRoute, useValue: { params: of({}) } }
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

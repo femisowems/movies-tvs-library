@@ -1,20 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TvShowsComponent } from './tv-shows.component';
+import { TvShowsService } from '../../services/tvshows.service';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
-import { MoviesComponent } from './movies.component';
-
-describe('MoviesComponent', () => {
-  let component: MoviesComponent;
-  let fixture: ComponentFixture<MoviesComponent>;
+describe('TvShowsComponent', () => {
+  let component: TvShowsComponent;
+  let fixture: ComponentFixture<TvShowsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MoviesComponent ]
+      declarations: [TvShowsComponent],
+      providers: [
+        { provide: TvShowsService, useValue: { searchTvShows: () => of([]), getTvShowsByGenre: () => of([]) } },
+        { provide: ActivatedRoute, useValue: { params: of({}) } }
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MoviesComponent);
+    fixture = TestBed.createComponent(TvShowsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -6,15 +6,16 @@
   height: fit-content;
   border-radius: 5px;
   background: linear-gradient(45deg, #585858, #4a4a4a);
-  box-shadow:  20px -20px 60px #464646,
-               -20px 20px 60px #5e5e5e;
+  box-shadow: 20px -20px 60px #464646,
+    -20px 20px 60px #5e5e5e;
+  cursor: pointer;
 
 
   &-image {
     img {
       width: 100%;
       border-radius: 5px;
-      object-fit:fill;
+      object-fit: fill;
     }
   }
 
@@ -28,7 +29,7 @@
     border-radius: 5px;
     padding: 5px 10px;
     opacity: 0;
-    
+
 
     .app-icon {
       margin-right: 5px;
@@ -50,39 +51,50 @@
   }
 
   &-title {
-    transform: translate(-50%, 125%);
-    border-radius: 1rem;
-    border: none;
-    background-color: #3891A6;
-    color: #fff;
-    font-size: 1rem;
-    padding: .5rem 1rem;
-    width: fit-content;
     position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 1rem 1rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0) 100%);
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
     text-align: center;
-    left: 50%;
-    bottom: 10%;
+    transform: translateY(20%);
     opacity: 0;
-    transition: 0.3s ease-out;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    // Ensure text truncation with ellipsis
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    // Add backdrop filter for modern glass effect
+    backdrop-filter: blur(2px);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 
   &:hover {
-    border: 2px solid #3891A6;
-  //  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+    z-index: 10;
   }
 
-  &:hover &-title  {
-    transform: translate(-50%, 50%);
+  &:hover &-title {
+    transform: translateY(0);
     opacity: 1;
-   }
+  }
 
-   &:hover &-rating {
+  &:hover &-rating {
     //transform: translate(-150%, -200%);
     opacity: 1;
-   }
+  }
 
-   &:hover &-release  {
+  &:hover &-release {
     opacity: 1;
-   }
+  }
 
 }
