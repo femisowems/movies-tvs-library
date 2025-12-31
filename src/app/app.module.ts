@@ -23,6 +23,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TvShowsComponent } from './pages/tv-shows/tv-shows.component';
 import { TvShowComponent } from './pages/tvshow/tvshow.component';
 import { SearchComponent } from './pages/search/search.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { MyListComponent } from './pages/my-list/my-list.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,11 @@ import { SearchComponent } from './pages/search/search.component';
     MovieComponent,
     GenresComponent,
     TvShowsComponent,
-    SearchComponent
+    SearchComponent,
+    LoginComponent,
+    RegisterComponent,
+    ForgotPasswordComponent,
+    MyListComponent
   ],
   imports: [
     FooterComponent,

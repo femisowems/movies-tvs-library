@@ -27,6 +27,11 @@
               <a [href]="tvShow.homepage || '#'" target="_blank" *ngIf="tvShow.homepage" class="website-btn">
                 <i class="pi pi-link"></i> Website
               </a>
+              <button class="website-btn" (click)="toggleFavorite(tvShow)" [class.active]="isTvShowInList(tvShow)">
+                <i class="pi" [ngClass]="isTvShowInList(tvShow) ? 'pi-heart-fill' : 'pi-heart'"
+                  [style.color]="isTvShowInList(tvShow) ? '#e50914' : 'inherit'"></i>
+                <span>{{ isTvShowInList(tvShow) ? 'Added to List' : 'Add to List' }}</span>
+              </button>
             </div>
           </div>
         </div>

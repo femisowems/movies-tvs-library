@@ -98,6 +98,14 @@
     max-width: 800px;
     margin-bottom: 2rem;
     color: rgba($white, 0.9);
+
+    .movie-actions {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2rem;
+
+      // .favorite-button removed in favor of reusing .website-btn class
+    }
   }
 
   .website-btn {
@@ -112,11 +120,23 @@
     font-weight: 600;
     transition: all 0.3s ease;
     border: 1px solid rgba($white, 0.2);
+    cursor: pointer; // Added for button element
+    margin-right: 1rem; // Added user requested margin
 
     &:hover {
       background: $primaryColor;
       color: $bgColorBlue;
       border-color: $primaryColor;
+    }
+
+    &.active {
+      background: $white;
+      color: $bgColorBlue;
+      border-color: $white;
+
+      i {
+        transform: scale(1.1);
+      }
     }
   }
 }

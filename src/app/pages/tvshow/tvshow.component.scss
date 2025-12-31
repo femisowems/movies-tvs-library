@@ -100,24 +100,13 @@
     color: rgba($white, 0.9);
   }
 
-  .website-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba($white, 0.1);
-    backdrop-filter: blur(4px);
-    color: $white;
-    padding: 10px 20px;
-    border-radius: 30px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: 1px solid rgba($white, 0.2);
+  .tv-show-actions {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem; // Added for spacing after actions
 
-    &:hover {
-      background: $primaryColor;
-      color: $bgColorBlue;
-      border-color: $primaryColor;
-    }
+    // .favorite-button removed in favor of reusing .website-btn class
   }
 }
 
@@ -258,13 +247,26 @@
   .p-carousel .p-carousel-content .p-carousel-prev,
   .p-carousel .p-carousel-content .p-carousel-next {
     background: rgba($white, 0.1);
+    border: none; // Ensure no default button border
+    cursor: pointer;
+    margin-right: 1rem; // Added user requested margin
     color: $primaryColor;
     width: 40px;
     height: 40px;
 
     &:hover {
-      background: $primaryColor;
+      background-color: lighten($primaryColor, 10%);
       color: $bgColorBlue;
+    }
+
+    &.active {
+      background: $white;
+      color: $bgColorBlue;
+      border-color: $white; // Only if border exists, here it is none
+
+      i {
+        transform: scale(1.1);
+      }
     }
   }
 }

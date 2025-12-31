@@ -11,16 +11,48 @@
     </div>
 
     <ul class="navbar-links" [class.active]="mobileMenuOpen">
-      <li><a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
-          (click)="closeMobileMenu()">Home</a></li>
-      <li><a routerLink="/movies" routerLinkActive="active-link" (click)="closeMobileMenu()">Movies</a></li>
-      <li><a routerLink="/tvshows" routerLinkActive="active-link" (click)="closeMobileMenu()">TV Shows</a></li>
-      <li><a routerLink="/genres" routerLinkActive="active-link" (click)="closeMobileMenu()">Genres</a></li>
+      <li>
+        <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
+          (click)="closeMobileMenu()">
+          <i class="pi pi-home"></i> Home
+        </a>
+      </li>
+      <li>
+        <a routerLink="/movies" routerLinkActive="active-link" (click)="closeMobileMenu()">
+          <i class="pi pi-video"></i> Movies
+        </a>
+      </li>
+      <li>
+        <a routerLink="/tvshows" routerLinkActive="active-link" (click)="closeMobileMenu()">
+          <i class="pi pi-desktop"></i> TV Shows
+        </a>
+      </li>
+      <li>
+        <a routerLink="/genres" routerLinkActive="active-link" (click)="closeMobileMenu()">
+          <i class="pi pi-list"></i> Genres
+        </a>
+      </li>
+      <li>
+        <a routerLink="/mylist" routerLinkActive="active-link" (click)="closeMobileMenu()">
+          <i class="pi pi-bookmark"></i> My List
+        </a>
+      </li>
       <li class="search-item">
-        <form (submit)="search()" class="search-form">
+        <div class="search-form">
           <i class="pi pi-search search-icon"></i>
-          <input type="text" [(ngModel)]="searchTerm" name="search" placeholder="Search..." class="search-input" />
-        </form>
+          <input type="text" placeholder="Search..." [(ngModel)]="searchTerm" (keyup.enter)="search()"
+            class="search-input">
+        </div>
+      </li>
+      <li class="profile-item" (clickOutside)="profileOpen = false">
+        <a (click)="toggleProfileMenu()" class="profile-link">
+          <i class="pi pi-user"></i> Profile <i class="pi pi-angle-down"></i>
+        </a>
+        <ul class="dropdown-menu" [class.show]="profileOpen">
+          <li><a routerLink="/login" (click)="closeMobileMenu()">Sign In</a></li>
+          <li><a routerLink="/register" (click)="closeMobileMenu()">Sign Up</a></li>
+          <li><a routerLink="/forgot-password" (click)="closeMobileMenu()">Forgot Password</a></li>
+        </ul>
       </li>
     </ul>
   </nav>

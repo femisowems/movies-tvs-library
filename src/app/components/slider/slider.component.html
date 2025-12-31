@@ -19,6 +19,10 @@
         <div class="desc mt-6">
           {{ item.overview.length > 200 ? (item.overview | slice:0:200) + '...' : item.overview }}
         </div>
+        <button class="favorite-button" (click)="toggleFavorite($event, item)" [class.active]="isItemInWatchlist(item)">
+          <i class="pi" [ngClass]="isItemInWatchlist(item) ? 'pi-heart-fill' : 'pi-heart'"></i>
+          <span>{{ isItemInWatchlist(item) ? 'Added to List' : 'Add to List' }}</span>
+        </button>
       </div>
     </a>
   </ng-container>

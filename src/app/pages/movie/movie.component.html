@@ -27,6 +27,11 @@
               <a [href]="movie.homepage" target="_blank" *ngIf="movie.homepage" class="website-btn">
                 <i class="pi pi-link"></i> Website
               </a>
+              <button class="website-btn" (click)="toggleFavorite(movie)" [class.active]="isMovieInList(movie)">
+                <i class="pi" [ngClass]="isMovieInList(movie) ? 'pi-heart-fill' : 'pi-heart'"
+                  [style.color]="isMovieInList(movie) ? '#e50914' : 'inherit'"></i>
+                <span>{{ isMovieInList(movie) ? 'Added to List' : 'Add to List' }}</span>
+              </button>
             </div>
           </div>
         </div>

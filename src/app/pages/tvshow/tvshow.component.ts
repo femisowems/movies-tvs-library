@@ -17,6 +17,7 @@ import {
 } from 'src/app/models/tv';
 import { TvShowsService } from 'src/app/services/tvshows.service';
 import { IMAGES_SIZES } from '../../constants/images-sizes';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-tvShow',
@@ -43,7 +44,7 @@ export class TvShowComponent implements OnInit, OnDestroy {
   imagesSizes = IMAGES_SIZES;
 
 
-  constructor(private route: ActivatedRoute, private tvShowsService: TvShowsService) { }
+  constructor(private route: ActivatedRoute, private tvShowsService: TvShowsService, private storageService: StorageService) { }
 
   ngOnInit(): void {
     this.route.params.pipe().subscribe(({ id }) => {
@@ -88,5 +89,17 @@ export class TvShowComponent implements OnInit, OnDestroy {
     this.tvShowsService.getTvShowSimilar(id).subscribe((tvShowSimilarData) => {
       this.similarTvShows = tvShowSimilarData.map((tvShow) => mapTvShowToItem(tvShow));
     });
+  }
+
+  isTvShowInList(tvShow: TvShow): boolean {
+    return this.storageService.isItemInList(tvShow.id);
+  }
+
+  toggleFavorite(tvShow: TvShow): void {
+    if (this.isTvShowInList(tvShow)) {
+      this.storageService.removeItem(tvShow.id);
+    } else {
+      this.storageService.addItem(tvShow);
+    }
   }
 }

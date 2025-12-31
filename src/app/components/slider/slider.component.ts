@@ -7,6 +7,8 @@ import { Item } from '../item/item';
 
 import { RouterModule } from '@angular/router';
 
+import { StorageService } from '../../services/storage.service';
+
 @Component({
   selector: 'slider',
   standalone: true,
@@ -28,6 +30,8 @@ export class SliderComponent implements OnInit {
   intervalId: any;
 
   readonly imagesSizes = IMAGES_SIZES;
+
+  constructor(private storageService: StorageService) { }
 
   ngOnInit(): void {
     if (!this.isBanner) {
@@ -66,5 +70,20 @@ export class SliderComponent implements OnInit {
   resetTimer() {
     this.stopTimer();
     this.startTimer();
+  }
+
+  isItemInWatchlist(item: Item): boolean {
+    return this.storageService.isItemInList(item.id);
+  }
+
+  toggleFavorite(event: Event, item: Item): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (this.isItemInWatchlist(item)) {
+      this.storageService.removeItem(item.id);
+    } else {
+      this.storageService.addItem(item);
+    }
   }
 }

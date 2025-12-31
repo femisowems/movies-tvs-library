@@ -14,5 +14,8 @@
       <img [src]="imagesSizes.medium + itemData.poster_path" [alt]="itemData.title" />
     </div>
     <div class="item-title">{{ itemData.title }}</div>
+    <button class="favorite-button" (click)="toggleFavorite($event)" [class.active]="isFavorite">
+      <i class="pi" [ngClass]="isFavorite ? 'pi-heart-fill' : 'pi-heart'"></i>
+    </button>
   </a>
 </ng-container>

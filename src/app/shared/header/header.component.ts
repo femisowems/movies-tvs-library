@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   mobileMenuOpen = false;
+  profileOpen = false;
   searchTerm: string = '';
 
   constructor(private router: Router) { }
@@ -21,8 +22,13 @@ export class HeaderComponent implements OnInit {
     this.mobileMenuOpen = !this.mobileMenuOpen;
   }
 
+  toggleProfileMenu() {
+    this.profileOpen = !this.profileOpen;
+  }
+
   closeMobileMenu() {
     this.mobileMenuOpen = false;
+    this.profileOpen = false;
   }
 
   search() {

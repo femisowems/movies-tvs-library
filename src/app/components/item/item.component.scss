@@ -1,100 +1,115 @@
 @import '../../../styles/colors';
 
 .item {
+  text-decoration: none;
+  color: $white;
+  cursor: pointer;
   position: relative;
   display: block;
-  height: fit-content;
-  border-radius: 5px;
-  background: linear-gradient(45deg, #585858, #4a4a4a);
-  box-shadow: 20px -20px 60px #464646,
-    -20px 20px 60px #5e5e5e;
-  cursor: pointer;
 
+  &:hover {
+    .item-title {
+      color: $primaryColor;
+    }
 
-  &-image {
     img {
-      width: 100%;
-      border-radius: 5px;
-      object-fit: fill;
+      transform: scale(1.05);
+      opacity: 0.8;
+    }
+
+    .favorite-button {
+      opacity: 1;
     }
   }
 
   &-rating {
     position: absolute;
-    display: flex;
-    align-items: center;
     top: 10px;
     left: 10px;
-    background-color: #3891A6;
+    background-color: rgba($bgColorBlue, 0.8);
+    padding: 3px 5px;
     border-radius: 5px;
-    padding: 5px 10px;
-    opacity: 0;
-
-
-    .app-icon {
-      margin-right: 5px;
-      color: #d4af37;
-    }
+    font-size: 0.9rem;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 3px;
   }
 
   &-release {
     position: absolute;
-    display: flex;
-    align-items: center;
     top: 10px;
-    right: 10px;
-    background-color: #000;
-    color: #fff;
+    right: 10px; // Adjusted if needed, but favorite button will take top-right
+    background-color: rgba($bgColorBlue, 0.8);
+    padding: 3px 5px;
     border-radius: 5px;
-    padding: 5px 10px;
-    opacity: 0;
-  }
-
-  &-title {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 2rem 1rem 1rem;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0) 100%);
-    color: #fff;
-    font-size: 1.1rem;
-    font-weight: 600;
-    text-align: center;
-    transform: translateY(20%);
-    opacity: 0;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-    // Ensure text truncation with ellipsis
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
-    // Add backdrop filter for modern glass effect
-    backdrop-filter: blur(2px);
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-  }
-
-  &:hover {
-    transform: scale(1.03);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-    transition: all 0.3s ease;
+    font-size: 0.9rem;
     z-index: 10;
   }
 
-  &:hover &-title {
-    transform: translateY(0);
-    opacity: 1;
+  &-image {
+    width: 100%;
+    aspect-ratio: 2/3;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s, opacity 0.3s;
+    }
   }
 
-  &:hover &-rating {
-    //transform: translate(-150%, -200%);
-    opacity: 1;
+  &-title {
+    font-size: 1rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
-  &:hover &-release {
-    opacity: 1;
-  }
+  .favorite-button {
+    position: absolute;
+    top: 45px;
+    left: 10px;
+    right: auto;
+    background-color: rgba($bgColorBlue, 0.6);
+    backdrop-filter: blur(4px);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.3s ease;
+    padding: 0;
 
+    i {
+      font-size: 1rem;
+      color: rgba($white, 0.7);
+      transition: color 0.3s;
+    }
+
+    &:hover {
+      background-color: $white;
+
+      i {
+        color: #e50914; // Red for heart
+      }
+    }
+
+    &.active {
+      background-color: $white;
+
+      i {
+        color: #e50914;
+        font-weight: bold;
+      }
+    }
+  }
 }

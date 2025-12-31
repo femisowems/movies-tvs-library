@@ -1,0 +1,99 @@
+@import '../../../styles/colors';
+
+.container {
+    padding: 2rem;
+    min-height: 80vh;
+    color: $white;
+
+    h1 {
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+    }
+
+    .empty-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-top: 5rem;
+        color: rgba($white, 0.7);
+
+        i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: rgba($white, 0.3);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: $white;
+        }
+
+        p {
+            margin-bottom: 2rem;
+        }
+
+        .browse-button {
+            background-color: $primaryColor;
+            color: $white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+
+            &:hover {
+                background-color: lighten($primaryColor, 10%);
+            }
+        }
+    }
+
+    // Override PrimeNG TabView styles
+    ::ng-deep .p-tabview {
+        .p-tabview-nav {
+            background: transparent;
+            border: none;
+
+            li {
+                margin-right: 2.5rem; // Increased spacing
+
+                .p-tabview-nav-link {
+                    background: transparent;
+                    border: none;
+                    border-bottom: 3px solid transparent; // Prepare for active Border
+                    color: rgba($white, 0.6);
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                    padding: 10px 5px; // Reduced horizontal padding
+                    border-radius: 0; // No pill shape
+                    text-decoration: none;
+                    font-size: 1.2rem; // Slightly larger text
+
+                    &:not(.p-disabled):focus {
+                        box-shadow: none;
+                    }
+
+                    &:hover {
+                        color: $white;
+                        background: transparent;
+                    }
+                }
+
+                &.p-highlight .p-tabview-nav-link {
+                    background: transparent;
+                    color: $white;
+                    border-color: $white; // Active white underline
+                }
+            }
+        }
+
+        .p-tabview-panels {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+    }
+}

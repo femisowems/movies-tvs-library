@@ -104,6 +104,58 @@
       .desc {
         font-size: 1.2rem;
         line-height: 1.6;
+
+        &.rating-value {
+          font-weight: bold;
+        }
+      }
+
+      .favorite-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba($white, 0.1);
+        backdrop-filter: blur(4px);
+        color: $white;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: 1px solid rgba($white, 0.2);
+        font-size: 1rem;
+        cursor: pointer;
+        margin-top: 1.5rem;
+
+        i {
+          font-size: 1.2rem;
+          transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        &:hover {
+          background: $white;
+          color: $bgColorBlue;
+          border-color: $white;
+          transform: translateY(-2px);
+
+          i {
+            color: #e50914;
+          }
+        }
+
+        &.active {
+          background: $white;
+          color: $bgColorBlue;
+          border-color: $white;
+
+          i {
+            color: #e50914;
+            transform: scale(1.1);
+          }
+
+          span {
+            font-weight: 700;
+          }
+        }
       }
     }
   }

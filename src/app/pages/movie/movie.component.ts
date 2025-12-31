@@ -5,6 +5,8 @@ import { Movie, MovieCredits, MovieImages, MovieVideo } from 'src/app/models/mov
 import { MoviesService } from 'src/app/services/movies.service';
 import { IMAGES_SIZES } from '../../constants/images-sizes';
 
+import { StorageService } from '../../services/storage.service';
+
 @Component({
   selector: 'app-movie',
   templateUrl: './movie.component.html',
@@ -18,7 +20,7 @@ export class MovieComponent implements OnInit, OnDestroy {
   imagesSizes = IMAGES_SIZES;
   similarMovies: Movie[] = [];
 
-  constructor(private route: ActivatedRoute, private moviesService: MoviesService) {}
+  constructor(private route: ActivatedRoute, private moviesService: MoviesService, private storageService: StorageService) { }
 
   ngOnInit(): void {
     this.route.params.pipe().subscribe(({ id }) => {
@@ -62,5 +64,17 @@ export class MovieComponent implements OnInit, OnDestroy {
     this.moviesService.getMovieCredits(id).subscribe((movieCreditsData) => {
       this.movieCredits = movieCreditsData;
     });
+  }
+
+  isMovieInList(movie: Movie): boolean {
+    return this.storageService.isItemInList(movie.id);
+  }
+
+  toggleFavorite(movie: Movie): void {
+    if (this.isMovieInList(movie)) {
+      this.storageService.removeItem(movie.id);
+    } else {
+      this.storageService.addItem(movie);
+    }
   }
 }

@@ -1,0 +1,36 @@
+<div class="container">
+    <h1>My List</h1>
+
+    <div *ngIf="items.length === 0" class="empty-state">
+        <i class="pi pi-heart"></i>
+        <h2>Your list is empty</h2>
+        <p>Add movies and TV shows to track what you want to watch.</p>
+        <a routerLink="/" class="browse-button">Browse Content</a>
+    </div>
+
+    <div *ngIf="items.length > 0">
+        <p-tabView>
+            <p-tabPanel header="All">
+                <div class="grid">
+                    <div class="col-6 md:col-3 lg:col-2" *ngFor="let item of items">
+                        <item [itemData]="item"></item>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Movies">
+                <div class="grid">
+                    <div class="col-6 md:col-3 lg:col-2" *ngFor="let item of getMovies()">
+                        <item [itemData]="item"></item>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="TV Shows">
+                <div class="grid">
+                    <div class="col-6 md:col-3 lg:col-2" *ngFor="let item of getTvShows()">
+                        <item [itemData]="item"></item>
+                    </div>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+</div>
