@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common'; // Added
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { Item } from '../../components/item/item';
+import { ItemComponent } from '../../components/item/item.component'; // Added import for usage
 import { MoviesService } from '../../services/movies.service';
 import { TvShowsService } from '../../services/tvshows.service';
 import { mapMovieToItem } from '../../models/movie';
@@ -10,7 +12,9 @@ import { mapTvShowToItem } from '../../models/tv';
 @Component({
     selector: 'app-search',
     templateUrl: './search.component.html',
-    styleUrls: ['./search.component.scss']
+    styleUrls: ['./search.component.scss'],
+    standalone: true, // Added
+    imports: [CommonModule, ItemComponent] // Added
 })
 export class SearchComponent implements OnInit {
     searchValue: string | null = null;

@@ -1,14 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common'; // Added
 import { Item } from 'src/app/components/item/item';
 import { TvShowsService } from 'src/app/services/tvshows.service';
 import { mapMovieToItem, Movie } from '../../models/movie';
 import { mapTvShowToItem, TvShow } from '../../models/tv';
 import { MoviesService } from '../../services/movies.service';
+import { SliderComponent } from '../../components/slider/slider.component'; // Added
+import { ItemsBannerComponent } from '../../components/items-banner/items-banner.component'; // Added
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  standalone: true, // Added
+  imports: [CommonModule, SliderComponent, ItemsBannerComponent] // Added
 })
 export class HomeComponent implements OnInit {
   // Movie Lists

@@ -12,7 +12,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { MyListComponent } from './pages/my-list/my-list.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     component: HomeComponent

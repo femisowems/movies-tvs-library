@@ -1,14 +1,37 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { TvShow, mapTvShowToItem } from 'src/app/models/tv';
 import { TvShowsService } from '../../services/tvshows.service';
 import { Item } from 'src/app/components/item/item';
+import { PaginatorModule } from 'primeng/paginator';
+import { ItemComponent } from '../../components/item/item.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+import { AccordionModule } from 'primeng/accordion';
+import { CalendarModule } from 'primeng/calendar';
+import { CheckboxModule } from 'primeng/checkbox';
+import { DropdownModule } from 'primeng/dropdown';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
   selector: 'app-tv-shows',
   templateUrl: './tv-shows.component.html',
-  styleUrls: ['./tv-shows.component.scss']
+  styleUrls: ['./tv-shows.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    PaginatorModule,
+    ItemComponent,
+    InputTextModule,
+    FormsModule,
+    AccordionModule,
+    CalendarModule,
+    CheckboxModule,
+    DropdownModule,
+    RadioButtonModule
+  ]
 })
 export class TvShowsComponent implements OnInit {
   tvShows: Item[] = [];

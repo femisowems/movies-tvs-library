@@ -1,14 +1,27 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { Item } from 'src/app/components/item/item';
 import { mapMovieToItem, Movie } from 'src/app/models/movie';
 import { MoviesService } from 'src/app/services/movies.service';
+import { PaginatorModule } from 'primeng/paginator';
+import { ItemComponent } from '../../components/item/item.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
-  styleUrls: ['./movies.component.scss']
+  styleUrls: ['./movies.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    PaginatorModule,
+    ItemComponent,
+    InputTextModule,
+    FormsModule
+  ]
 })
 export class MoviesComponent implements OnInit {
   movies: Movie[] = [];

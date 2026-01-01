@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common'; // Added
+import { Router, RouterModule } from '@angular/router'; // Added RouterModule
+import { FormsModule } from '@angular/forms'; // Added for ngModel
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  standalone: true, // Added
+  imports: [CommonModule, RouterModule, FormsModule] // Added
 })
 export class HeaderComponent implements OnInit {
 
