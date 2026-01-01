@@ -40,3 +40,25 @@
         }
     }
 }
+
+// Responsive styles
+@media (max-width: 767px) {
+    .categories-tabs {
+        gap: 0.5rem;
+        padding: 0 1rem;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-tab {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            flex: 0 0 auto;
+        }
+    }
+}
