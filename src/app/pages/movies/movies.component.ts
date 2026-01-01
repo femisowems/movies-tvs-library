@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
-import { Movie } from 'src/app/models/movie';
+import { Item } from 'src/app/components/item/item';
+import { mapMovieToItem, Movie } from 'src/app/models/movie';
 import { MoviesService } from 'src/app/services/movies.service';
 
 @Component({

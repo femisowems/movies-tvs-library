@@ -3,6 +3,7 @@ import { MoviesComponent } from './movies.component';
 import { MoviesService } from 'src/app/services/movies.service';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('MoviesComponent', () => {
   let component: MoviesComponent;
@@ -14,7 +15,8 @@ describe('MoviesComponent', () => {
       providers: [
         { provide: MoviesService, useValue: { searchMovies: () => of([]), getMoviesByGenre: () => of([]) } },
         { provide: ActivatedRoute, useValue: { params: of({}) } }
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();
   });

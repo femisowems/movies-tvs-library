@@ -51,6 +51,16 @@ a {
 }
 
 .container {
-  margin: 5.5rem;
-  padding: 0.5rem;
+  width: 100%;
+  max-width: 1500px;
+  margin: 2rem auto; // Reduced from 5.5rem to fix bottom gap and mobile spacing
+  padding: 0 2rem;
+}
+
+// Mobile responsive adjustment
+@media (max-width: 768px) {
+  .container {
+    margin: 1rem auto;
+    padding: 0 1rem;
+  }
 }

@@ -157,4 +157,32 @@ export class TvShowsService {
       })
     );
   }
+  searchTvShowsAdvanced(page: number, filters: { genres?: number[], startDate?: string, endDate?: string } = {}) {
+    const headers = this.createHeaders();
+    let params = this.createParams({
+      page: page.toString(),
+      'vote_count.gte': '10', // Filter out junk
+    });
+
+    if (filters.genres && filters.genres.length > 0) {
+      params = params.set('with_genres', filters.genres.join(','));
+    }
+
+    if (filters.startDate) {
+      params = params.set('first_air_date.gte', filters.startDate);
+    }
+
+    if (filters.endDate) {
+      params = params.set('first_air_date.lte', filters.endDate);
+    }
+
+    return this.http.get<TvShowDto>(`${this.baseUrl}/discover/tv`, {
+      headers: headers,
+      params: params
+    }).pipe(
+      switchMap((res) => {
+        return of(res.results);
+      })
+    );
+  }
 }

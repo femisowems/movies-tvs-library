@@ -5,12 +5,27 @@ import { Movie, MovieCredits, MovieImages, MovieVideo } from 'src/app/models/mov
 import { MoviesService } from 'src/app/services/movies.service';
 import { IMAGES_SIZES } from '../../constants/images-sizes';
 
+import { CommonModule } from '@angular/common';
+import { TabViewModule } from 'primeng/tabview';
+import { ImageModule } from 'primeng/image';
+import { CarouselModule } from 'primeng/carousel';
+import { VideoEmbedComponent } from '../../components/video-embed/video-embed.component';
+import { ItemsBannerComponent } from '../../components/items-banner/items-banner.component';
 import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-movie',
   templateUrl: './movie.component.html',
-  styleUrls: ['./movie.component.scss']
+  styleUrls: ['./movie.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    TabViewModule,
+    ImageModule,
+    CarouselModule,
+    VideoEmbedComponent,
+    ItemsBannerComponent
+  ]
 })
 export class MovieComponent implements OnInit, OnDestroy {
   movie: Movie | null = null;

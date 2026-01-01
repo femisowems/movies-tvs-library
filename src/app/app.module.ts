@@ -14,14 +14,18 @@ import { ItemsBannerComponent } from './components/items-banner/items-banner.com
 import { ItemComponent } from './components/item/item.component';
 import { PaginatorModule } from 'primeng/paginator';
 import { TabViewModule } from 'primeng/tabview';
-import { MovieComponent } from './pages/movie/movie.component';
-import { VideoEmbedComponent } from './components/video-embed/video-embed.component';
 import { ImageModule } from 'primeng/image';
 import { CarouselModule } from 'primeng/carousel';
 import { GenresComponent } from './pages/genres/genres.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { AccordionModule } from 'primeng/accordion';
+import { CheckboxModule } from 'primeng/checkbox';
+import { CalendarModule } from 'primeng/calendar';
+
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
 import { TvShowsComponent } from './pages/tv-shows/tv-shows.component';
-import { TvShowComponent } from './pages/tvshow/tvshow.component';
 import { SearchComponent } from './pages/search/search.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -34,7 +38,6 @@ import { MyListComponent } from './pages/my-list/my-list.component';
     HeaderComponent,
     HomeComponent,
     MoviesComponent,
-    MovieComponent,
     GenresComponent,
     TvShowsComponent,
     SearchComponent,
@@ -46,8 +49,6 @@ import { MyListComponent } from './pages/my-list/my-list.component';
   imports: [
     FooterComponent,
     SliderComponent,
-    VideoEmbedComponent,
-    TvShowComponent,
     ItemsBannerComponent,
     ItemComponent,
     BrowserModule,
@@ -59,6 +60,12 @@ import { MyListComponent } from './pages/my-list/my-list.component';
     ImageModule,
     CarouselModule,
     InputTextModule,
+    AccordionModule,
+    CheckboxModule,
+    CalendarModule,
+    RadioButtonModule,
+    DropdownModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
