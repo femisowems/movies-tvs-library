@@ -63,22 +63,52 @@ describe('TvShowsComponent', () => {
       page: 1,
       selectedGenres: [123],
       startDate: '2023-01-01',
-      endDate: '2023-12-31'
+      endDate: '2023-12-31',
+      sort: 'popularity.desc',
+      search: '',
+      category: 'popular'
     };
     component.onFilterChange(filterState);
     expect(tvShowsServiceMock.searchTvShowsAdvanced).toHaveBeenCalledWith(1, {
       genres: [123],
       startDate: '2023-01-01',
-      endDate: '2023-12-31'
+      endDate: '2023-12-31',
+      sort: 'popularity.desc',
+      watchProviders: undefined
     });
   });
 
   it('should call regular search when no complex filters in onFilterChange', () => {
     const filterState = {
       page: 1,
-      category: 'popular'
+      category: 'popular',
+      sort: 'popularity.desc',
+      search: '',
+      selectedGenres: [],
+      startDate: '',
+      endDate: ''
     };
     component.onFilterChange(filterState);
     expect(tvShowsServiceMock.searchTvShows).toHaveBeenCalledWith(1, undefined, 'popular');
+  });
+
+  it('should call advanced search when sort is modified', () => {
+    const filterState = {
+      page: 1,
+      category: 'popular',
+      sort: 'vote_average.desc',
+      search: '',
+      selectedGenres: [],
+      startDate: '',
+      endDate: ''
+    };
+    component.onFilterChange(filterState);
+    expect(tvShowsServiceMock.searchTvShowsAdvanced).toHaveBeenCalledWith(1, {
+      genres: [],
+      startDate: '',
+      endDate: '',
+      sort: 'vote_average.desc',
+      watchProviders: undefined
+    });
   });
 });

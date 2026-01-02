@@ -52,19 +52,27 @@ export class MoviesComponent implements OnInit {
   onFilterChange(state: FilterState) {
     if (state.search) {
       this.getPagedMovies(state.page, state.search);
-    } else if (state.category && state.category !== 'popular' && !state.selectedGenres && !state.startDate) {
-      this.getPagedMovies(state.page, undefined, state.category);
-    } else if (state.selectedGenres || state.startDate || state.endDate) {
-      const filters = {
-        genres: state.selectedGenres,
-        startDate: state.startDate,
-        endDate: state.endDate
-      };
-      this.moviesService.searchMoviesAdvanced(state.page, filters).subscribe((movies) => {
-        this.movies = movies.map(movie => mapMovieToItem(movie));
-      });
     } else {
-      this.getPagedMovies(state.page, undefined, state.category);
+      const isDefaultSort = state.sort === 'popularity.desc';
+      const hasFilters = (state.selectedGenres && state.selectedGenres.length > 0) ||
+        (state.watchProviders && state.watchProviders.length > 0) ||
+        state.startDate || state.endDate || !isDefaultSort;
+
+      if (hasFilters) {
+        const filters = {
+          genres: state.selectedGenres,
+          watchProviders: state.watchProviders,
+          startDate: state.startDate,
+          endDate: state.endDate,
+          sort: state.sort
+        };
+        this.moviesService.searchMoviesAdvanced(state.page, filters).subscribe((movies) => {
+          this.movies = movies.map(movie => mapMovieToItem(movie));
+        });
+      } else {
+        // category or default
+        this.getPagedMovies(state.page, undefined, state.category);
+      }
     }
   }
 }

@@ -52,19 +52,27 @@ export class TvShowsComponent implements OnInit {
   onFilterChange(state: FilterState) {
     if (state.search) {
       this.getPagedTvShows(state.page, state.search);
-    } else if (state.category && state.category !== 'popular' && !state.selectedGenres && !state.startDate) {
-      this.getPagedTvShows(state.page, undefined, state.category);
-    } else if (state.selectedGenres || state.startDate || state.endDate) {
-      const filters = {
-        genres: state.selectedGenres,
-        startDate: state.startDate,
-        endDate: state.endDate
-      };
-      this.tvShowsService.searchTvShowsAdvanced(state.page, filters).subscribe((tvShows) => {
-        this.tvShows = tvShows.map((tvShow) => mapTvShowToItem(tvShow));
-      });
     } else {
-      this.getPagedTvShows(state.page, undefined, state.category);
+      const isDefaultSort = state.sort === 'popularity.desc';
+      const hasFilters = (state.selectedGenres && state.selectedGenres.length > 0) ||
+        (state.watchProviders && state.watchProviders.length > 0) ||
+        state.startDate || state.endDate || !isDefaultSort;
+
+      if (hasFilters) {
+        const filters = {
+          genres: state.selectedGenres,
+          watchProviders: state.watchProviders,
+          startDate: state.startDate,
+          endDate: state.endDate,
+          sort: state.sort
+        };
+        this.tvShowsService.searchTvShowsAdvanced(state.page, filters).subscribe((tvShows) => {
+          this.tvShows = tvShows.map((tvShow) => mapTvShowToItem(tvShow));
+        });
+      } else {
+        // category or default
+        this.getPagedTvShows(state.page, undefined, state.category);
+      }
     }
   }
 }

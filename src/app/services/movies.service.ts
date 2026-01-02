@@ -144,11 +144,12 @@ export class MoviesService {
     );
   }
 
-  searchMoviesAdvanced(page: number, filters: { genres?: number[], startDate?: string, endDate?: string } = {}) {
+  searchMoviesAdvanced(page: number, filters: { genres?: number[], startDate?: string, endDate?: string, sort?: string, watchProviders?: number[] } = {}) {
     const headers = this.createHeaders();
     let params = this.createParams({
       page: page.toString(),
       'vote_count.gte': '10', // Filter out junk
+      'watch_region': 'US'
     });
 
     if (filters.genres && filters.genres.length > 0) {
@@ -161,6 +162,14 @@ export class MoviesService {
 
     if (filters.endDate) {
       params = params.set('primary_release_date.lte', filters.endDate);
+    }
+
+    if (filters.watchProviders && filters.watchProviders.length > 0) {
+      params = params.set('with_watch_providers', filters.watchProviders.join('|'));
+    }
+
+    if (filters.sort) {
+      params = params.set('sort_by', filters.sort);
     }
 
     return this.http.get<MovieDto>(`${this.baseUrl}/discover/movie`, {
