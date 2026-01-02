@@ -19,7 +19,7 @@ describe('HomeComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      declarations: [HomeComponent],
+      imports: [HomeComponent],
       providers: [
         { provide: MoviesService, useValue: moviesServiceMock },
         { provide: TvShowsService, useValue: tvShowsServiceMock }

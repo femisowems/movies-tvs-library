@@ -8,9 +8,9 @@ describe('FooterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FooterComponent ]
+      imports: [FooterComponent] // Imported because it is standalone
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -370,25 +370,26 @@
             background: #1a1a1a;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            min-width: 320px;
+            min-width: 260px; // Reduced from 320px
             width: auto !important;
 
             .p-datepicker-header {
                 background: #1a1a1a;
                 color: $white;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                padding: 0.5rem;
+                padding: 0.25rem; // Reduced padding
 
                 .p-datepicker-title {
                     color: $white;
                     font-weight: 600;
                     margin: 0 auto;
-                    line-height: 2rem;
+                    line-height: 1.5rem; // Reduced line height
+                    font-size: 0.9rem; // Smaller title
 
                     .p-datepicker-month,
                     .p-datepicker-year {
                         color: $white;
-                        padding: 0.25rem 0.5rem;
+                        padding: 0.2rem 0.4rem;
 
                         &:hover {
                             color: $primaryColor;
@@ -399,8 +400,8 @@
                 .p-datepicker-prev,
                 .p-datepicker-next {
                     color: rgba($white, 0.7);
-                    width: 2rem;
-                    height: 2rem;
+                    width: 1.5rem; // Smaller buttons
+                    height: 1.5rem;
 
                     &:hover {
                         color: $white;
@@ -410,22 +411,22 @@
             }
 
             table {
-                font-size: 0.9rem;
-                margin: 0.5rem 0;
+                font-size: 0.8rem; // Smaller font for dates
+                margin: 0.25rem 0;
                 width: 100%;
 
                 th {
                     color: rgba($white, 0.7);
-                    padding: 0.5rem;
+                    padding: 0.25rem;
                 }
 
                 td {
-                    padding: 0.2rem;
+                    padding: 0.1rem; // Tighter spacing
 
                     >span {
-                        width: 2rem;
-                        height: 2rem;
-                        line-height: 2rem;
+                        width: 1.8rem; // Smaller date circles
+                        height: 1.8rem;
+                        line-height: 1.8rem;
                         color: $white;
                         border-radius: 50%;
                         transition: all 0.2s;

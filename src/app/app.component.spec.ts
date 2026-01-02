@@ -6,11 +6,9 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
-      ],
-      declarations: [
+        RouterTestingModule,
         AppComponent
-      ],
+      ]
     }).compileComponents();
   });
 
@@ -26,10 +24,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('movies-app');
   });
 
-  it('should render title', () => {
+  it('should render header', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('movies-app app is running!');
+    expect(compiled.querySelector('app-header')).toBeTruthy();
   });
 });

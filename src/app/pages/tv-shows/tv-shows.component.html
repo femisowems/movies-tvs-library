@@ -85,13 +85,13 @@
                       <div class="field">
                         <label>from</label>
                         <p-calendar [(ngModel)]="startDate" (onSelect)="applyFilters()" dateFormat="yy-mm-dd"
-                          placeholder="Start Date" [showIcon]="true"></p-calendar>
+                          placeholder="Start Date" [showIcon]="true" appendTo="body"></p-calendar>
                       </div>
                       <div class="date-range-grid mt-2">
                         <div class="field">
                           <label>to</label>
                           <p-calendar [(ngModel)]="endDate" (onSelect)="applyFilters()" dateFormat="yy-mm-dd"
-                            placeholder="End Date" [showIcon]="true"></p-calendar>
+                            placeholder="End Date" [showIcon]="true" appendTo="body"></p-calendar>
                         </div>
                       </div>
                     </div>

@@ -1,20 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MovieComponent } from '../movie/movie.component';
+import { TvShowComponent } from './tvshow.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
+describe('TvShowComponent', () => {
+  let component: TvShowComponent;
+  let fixture: ComponentFixture<TvShowComponent>;
 
-describe('MovieComponent', () => {
-  let component: MovieComponent;
-  let fixture: ComponentFixture<MovieComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MovieComponent ]
+      imports: [TvShowComponent, RouterTestingModule, HttpClientTestingModule]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MovieComponent);
+    fixture = TestBed.createComponent(TvShowComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

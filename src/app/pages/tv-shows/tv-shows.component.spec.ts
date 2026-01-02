@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TvShowsComponent } from './tv-shows.component';
 import { TvShowsService } from '../../services/tvshows.service';
+import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { FormsModule } from '@angular/forms';
@@ -27,8 +28,9 @@ describe('TvShowsComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      declarations: [TvShowsComponent],
       imports: [
+        TvShowsComponent,
+        RouterTestingModule,
         FormsModule,
         AccordionModule,
         CalendarModule,

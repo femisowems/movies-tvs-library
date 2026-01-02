@@ -143,4 +143,33 @@ export class MoviesService {
       })
     );
   }
+
+  searchMoviesAdvanced(page: number, filters: { genres?: number[], startDate?: string, endDate?: string } = {}) {
+    const headers = this.createHeaders();
+    let params = this.createParams({
+      page: page.toString(),
+      'vote_count.gte': '10', // Filter out junk
+    });
+
+    if (filters.genres && filters.genres.length > 0) {
+      params = params.set('with_genres', filters.genres.join(','));
+    }
+
+    if (filters.startDate) {
+      params = params.set('primary_release_date.gte', filters.startDate);
+    }
+
+    if (filters.endDate) {
+      params = params.set('primary_release_date.lte', filters.endDate);
+    }
+
+    return this.http.get<MovieDto>(`${this.baseUrl}/discover/movie`, {
+      headers: headers,
+      params: params
+    }).pipe(
+      switchMap((res) => {
+        return of(res.results);
+      })
+    );
+  }
 }

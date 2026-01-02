@@ -17,6 +17,7 @@ body {
   font-size: 14px;
   color: $white;
   background: #0C111B;
+  padding-top: 80px; // Compensate for fixed header
 }
 
 a {
