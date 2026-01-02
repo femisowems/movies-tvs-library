@@ -5,15 +5,7 @@ import { take } from 'rxjs/operators';
 import { TvShow, mapTvShowToItem } from 'src/app/models/tv';
 import { TvShowsService } from '../../services/tvshows.service';
 import { Item } from 'src/app/components/item/item';
-import { PaginatorModule } from 'primeng/paginator';
-import { ItemComponent } from '../../components/item/item.component';
-import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
-import { AccordionModule } from 'primeng/accordion';
-import { CalendarModule } from 'primeng/calendar';
-import { CheckboxModule } from 'primeng/checkbox';
-import { DropdownModule } from 'primeng/dropdown';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { MediaListComponent, FilterState } from '../../components/media-list/media-list.component';
 
 @Component({
   selector: 'app-tv-shows',
@@ -22,43 +14,12 @@ import { RadioButtonModule } from 'primeng/radiobutton';
   standalone: true,
   imports: [
     CommonModule,
-    PaginatorModule,
-    ItemComponent,
-    InputTextModule,
-    FormsModule,
-    AccordionModule,
-    CalendarModule,
-    CheckboxModule,
-    DropdownModule,
-    RadioButtonModule
+    MediaListComponent
   ]
 })
 export class TvShowsComponent implements OnInit {
   tvShows: Item[] = [];
   genres: any[] = [];
-  selectedGenres: number[] = [];
-  startDate: Date | null = null;
-  endDate: Date | null = null;
-
-  genreId: string | null = null;
-  searchValue: string | null = null;
-  category: string = 'popular';
-  categories = [
-    { name: 'Popular', value: 'popular' },
-    { name: 'Top Rated', value: 'top_rated' },
-    { name: 'On TV', value: 'on_the_air' },
-    { name: 'Airing Today', value: 'airing_today' }
-  ];
-
-  sortOptions = [
-    { label: 'Popularity Descending', value: 'popularity.desc' },
-    { label: 'Popularity Ascending', value: 'popularity.asc' },
-    { label: 'Rating Descending', value: 'vote_average.desc' },
-    { label: 'Rating Ascending', value: 'vote_average.asc' },
-    { label: 'Release Date Descending', value: 'first_air_date.desc' },
-    { label: 'Release Date Ascending', value: 'first_air_date.asc' }
-  ];
-  showMeValue: string = 'everything';
 
   constructor(private tvShowsService: TvShowsService, private route: ActivatedRoute) { }
 
@@ -69,7 +30,6 @@ export class TvShowsComponent implements OnInit {
 
     this.route.params.pipe(take(1)).subscribe(({ genreId }) => {
       if (genreId) {
-        this.genreId = genreId;
         this.getTvShowsByGenre(genreId, 1);
       } else {
         this.getPagedTvShows(1);
@@ -77,12 +37,8 @@ export class TvShowsComponent implements OnInit {
     });
   }
 
-  getPagedTvShows(page: number, searchKeyword?: string) {
-    if (this.selectedGenres.length > 0 || this.startDate || this.endDate) {
-      this.applyFilters(page);
-      return;
-    }
-    this.tvShowsService.searchTvShows(page, searchKeyword, this.category).subscribe((tvShows) => {
+  getPagedTvShows(page: number, searchKeyword?: string, category: string = 'popular') {
+    this.tvShowsService.searchTvShows(page, searchKeyword, category).subscribe((tvShows) => {
       this.tvShows = tvShows.map((tvShow) => mapTvShowToItem(tvShow));
     });
   }
@@ -93,54 +49,22 @@ export class TvShowsComponent implements OnInit {
     });
   }
 
-  applyFilters(page: number = 1) {
-    const filters = {
-      genres: this.selectedGenres,
-      startDate: this.startDate ? this.startDate.toISOString().split('T')[0] : undefined,
-      endDate: this.endDate ? this.endDate.toISOString().split('T')[0] : undefined
-    };
-
-    this.tvShowsService.searchTvShowsAdvanced(page, filters).subscribe((tvShows) => {
-      this.tvShows = tvShows.map((tvShow) => mapTvShowToItem(tvShow));
-    });
-  }
-
-  paginate(event: any) {
-    const pageNumber = event.page + 1;
-
-    if (this.genreId) {
-      this.getTvShowsByGenre(this.genreId, pageNumber);
+  onFilterChange(state: FilterState) {
+    if (state.search) {
+      this.getPagedTvShows(state.page, state.search);
+    } else if (state.category && state.category !== 'popular' && !state.selectedGenres && !state.startDate) {
+      this.getPagedTvShows(state.page, undefined, state.category);
+    } else if (state.selectedGenres || state.startDate || state.endDate) {
+      const filters = {
+        genres: state.selectedGenres,
+        startDate: state.startDate,
+        endDate: state.endDate
+      };
+      this.tvShowsService.searchTvShowsAdvanced(state.page, filters).subscribe((tvShows) => {
+        this.tvShows = tvShows.map((tvShow) => mapTvShowToItem(tvShow));
+      });
     } else {
-      if (this.searchValue) {
-        this.getPagedTvShows(pageNumber, this.searchValue);
-      } else if (this.selectedGenres.length > 0 || this.startDate || this.endDate) {
-        this.applyFilters(pageNumber);
-      } else {
-        this.getPagedTvShows(pageNumber);
-      }
+      this.getPagedTvShows(state.page, undefined, state.category);
     }
-  }
-
-  searchChanged() {
-    if (this.searchValue) {
-      this.getPagedTvShows(1, this.searchValue);
-    }
-  }
-
-  toggleGenre(genreId: number) {
-    if (this.selectedGenres.includes(genreId)) {
-      this.selectedGenres = this.selectedGenres.filter(id => id !== genreId);
-    } else {
-      this.selectedGenres.push(genreId);
-    }
-    this.applyFilters();
-  }
-
-  changeCategory(category: string) {
-    this.category = category;
-    this.selectedGenres = [];
-    this.startDate = null;
-    this.endDate = null;
-    this.getPagedTvShows(1);
   }
 }

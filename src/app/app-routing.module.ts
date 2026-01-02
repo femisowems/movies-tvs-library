@@ -15,55 +15,68 @@ import { MyListComponent } from './pages/my-list/my-list.component';
 export const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
+    data: { title: 'Home' }
   },
   {
     path: 'movies',
-    component: MoviesComponent
+    component: MoviesComponent,
+    data: { title: 'Movies' }
   },
   {
     path: 'movies/genres/:genreId',
-    component: MoviesComponent
+    component: MoviesComponent,
+    data: { title: 'Movies' }
   },
   {
     path: 'movie/:id',
-    component: MovieComponent
+    component: MovieComponent,
+    data: { title: 'Movie Details' }
   },
   {
     path: 'tvshows',
-    component: TvShowsComponent
+    component: TvShowsComponent,
+    data: { title: 'TV Shows' }
   },
   {
     path: 'tvshow/:id',
-    component: TvShowComponent
+    component: TvShowComponent,
+    data: { title: 'TV Show Details' }
   },
   {
     path: 'tvshows/genres/:genreId',
-    component: TvShowsComponent
+    component: TvShowsComponent,
+    data: { title: 'TV Shows' }
   },
   {
     path: 'genres',
-    component: GenresComponent
+    component: GenresComponent,
+    data: { title: 'Genres' }
   },
   {
     path: 'search',
-    component: SearchComponent
+    component: SearchComponent,
+    data: { title: 'Search' }
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    data: { title: 'Login' }
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
+    data: { title: 'Register' }
   },
   {
     path: 'forgot-password',
-    component: ForgotPasswordComponent
+    component: ForgotPasswordComponent,
+    data: { title: 'Forgot Password' }
   },
   {
     path: 'mylist',
-    component: MyListComponent
+    component: MyListComponent,
+    data: { title: 'My List' }
   },
   {
     path: '**',

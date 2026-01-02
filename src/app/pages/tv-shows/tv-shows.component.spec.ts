@@ -58,17 +58,27 @@ describe('TvShowsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should toggle genre selection', () => {
-    const genreId = 123;
-    component.toggleGenre(genreId);
-    expect(component.selectedGenres).toContain(genreId);
-
-    component.toggleGenre(genreId);
-    expect(component.selectedGenres).not.toContain(genreId);
+  it('should call advanced search when filters are present in onFilterChange', () => {
+    const filterState = {
+      page: 1,
+      selectedGenres: [123],
+      startDate: '2023-01-01',
+      endDate: '2023-12-31'
+    };
+    component.onFilterChange(filterState);
+    expect(tvShowsServiceMock.searchTvShowsAdvanced).toHaveBeenCalledWith(1, {
+      genres: [123],
+      startDate: '2023-01-01',
+      endDate: '2023-12-31'
+    });
   });
 
-  it('should call advanced search when applying filters', () => {
-    component.applyFilters(1);
-    expect(tvShowsServiceMock.searchTvShowsAdvanced).toHaveBeenCalled();
+  it('should call regular search when no complex filters in onFilterChange', () => {
+    const filterState = {
+      page: 1,
+      category: 'popular'
+    };
+    component.onFilterChange(filterState);
+    expect(tvShowsServiceMock.searchTvShows).toHaveBeenCalledWith(1, undefined, 'popular');
   });
 });
